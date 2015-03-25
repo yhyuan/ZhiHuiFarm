@@ -17,6 +17,32 @@
     z-index: 1;
 }
 
+.leaflet-animated-icon {
+  border-radius: 50%;
+  border: none;
+  opacity: .2;
+  background: black;
+}
+
+.leaflet-div-icon {
+    border-radius: 50%;
+    border: none;
+    line-height: 30px;
+    font-family: verdana;
+    text-align: center;
+    color: white;
+    opacity: .8;
+    vertical-align:middle;
+}
+
+.leaflet-div-icon.public {
+    background: #49AFCD;
+}
+
+.leaflet-div-icon.private {
+    background: #DA4F49;
+}
+
 .invite-row .invite {
     margin: 10px 10px 10px 0;
 }
@@ -39,28 +65,6 @@
 }
 
 input.chosen {
-    font-weight: bold;
-}
-
-.map {
-    position: relative;
-    background-image: url('/soma.png');
-    background-position: -20px -20px;
-    width: 500px;
-    height: 500px;
-}
-
-.map circle.public {
-    fill: #49AFCD;
-}
-
-.map circle.private {
-    fill: #DA4F49;
-}
-
-.map text {
-    text-anchor: middle;
-    fill: white;
     font-weight: bold;
 }
 

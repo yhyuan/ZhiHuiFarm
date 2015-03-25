@@ -23,7 +23,7 @@ Parties.allow({
     if (userId !== party.owner)
       return false; // not the owner
 
-    var allowed = ["title", "description", "x", "y"];
+    var allowed = ["title", "description", "latlng"];
     if (_.difference(fields, allowed).length)
       return false; // tried to write to forbidden field
 
@@ -48,8 +48,10 @@ var NonEmptyString = Match.Where(function (x) {
 });
 
 var Coordinate = Match.Where(function (x) {
-  check(x, Number);
-  return x >= 0 && x <= 1;
+  check(x.lat, Number);
+  check(x.lng, Number);
+  
+  return x.lat >= -90 && x.lat <= 90 &&  x.lng >= -180 && x.lng <= 180;
 });
 
 createParty = function (options) {
@@ -64,8 +66,7 @@ Meteor.methods({
     check(options, {
       title: NonEmptyString,
       description: NonEmptyString,
-      x: Coordinate,
-      y: Coordinate,
+      latlng: Coordinate,
       public: Match.Optional(Boolean),
       _id: Match.Optional(NonEmptyString)
     });
@@ -81,8 +82,7 @@ Meteor.methods({
     Parties.insert({
       _id: id,
       owner: this.userId,
-      x: options.x,
-      y: options.y,
+      latlng: options.latlng,
       title: options.title,
       description: options.description,
       public: !! options.public,
