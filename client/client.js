@@ -183,7 +183,7 @@ Template.map.rendered = function () {
   
   // initialize map events
   if (!map) {
-    initialize($("#map_canvas")[0], [ 41.8781136, -87.66677956445312 ], 13);
+    initialize($("#map_canvas")[0], [ 39.56349, 117.55405 ], 13);
     
     map.on("dblclick", function(e) {
       if (! Meteor.userId()) // must be logged in to create parties

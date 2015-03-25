@@ -1,5 +1,5 @@
 <head>
-  <title>All Tomorrow's Parties</title>
+  <title>ZhiHui Farm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -18,7 +18,7 @@
 <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
-        <a class='brand' href='/'>All Tomorrow's Parties</a>
+        <a class='brand' href='/'>ZhiHui Farm</a>
         <div class="nav pull-right">
           {{> loginButtons}}
         </div>
@@ -37,14 +37,16 @@
         {{/if}}
       </div>
       <div class="span8">
+        {{#if currentUser}}
           {{> map}}
+        {{/if}}
       </div>
     </div>
   </div>
 </template>
 
 <template name="map">
-    <div id="map_canvas" class="map"></div>    
+    <div id="map_canvas" class="map"></div>
 </template>
 
 <template name="details">
