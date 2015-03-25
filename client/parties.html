@@ -7,47 +7,11 @@
 	{{#if currentUser}}
         {{> dashboard}}
     {{else}}
-        {{> login}}
+    	{{> loginSignup}}
     {{/if}}
 </body>
 
-<template name="page">
-  {{#if showCreateDialog}}
-    {{> createDialog}}
-  {{/if}}
 
-  {{#if showInviteDialog}}
-    {{> inviteDialog}}
-  {{/if}}
-<div class="navbar">
-    <div class="navbar-inner">
-      <div class="container">
-        <a class='brand' href='/'>ZhiHui Farm</a>
-        <div class="nav pull-right">
-          {{> loginButtons}}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span4">
-        {{> details}}
-        {{#if currentUser}}
-        <div class="pagination-centered">
-          <em><small>Double click the map to post a party!</small></em>
-        </div>
-        {{/if}}
-      </div>
-      <div class="span8">
-        {{#if currentUser}}
-          {{> map}}
-        {{/if}}
-      </div>
-    </div>
-  </div>
-</template>
 
 <template name="map">
     <div id="map_canvas" class="map"></div>

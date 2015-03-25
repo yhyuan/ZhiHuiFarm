@@ -1,0 +1,34 @@
+<template name="fieldsManagement">
+  {{#if showCreateDialog}}
+    {{> createDialog}}
+  {{/if}}
+
+  {{#if showInviteDialog}}
+    {{> inviteDialog}}
+  {{/if}}
+<div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <input type="submit" value="Go Back" class="btn btn-success btn-sm" id='goBackButton'/>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span4">
+        {{> details}}
+        {{#if currentUser}}
+        <div class="pagination-centered">
+          <em><small>Double click the map to post a party!</small></em>
+        </div>
+        {{/if}}
+      </div>
+      <div class="span8">
+        {{#if currentUser}}
+          {{> map}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>

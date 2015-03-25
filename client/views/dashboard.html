@@ -1,4 +1,25 @@
 <template name="dashboard">
-    <p>You're logged in.</p>
-    <p><a href="#" class="logout">Logout</a></p>
+	{{#if menuOptionIs "menu"}}
+	  <div class="container">
+	      <div class="row">
+	          <div class="col-md-12">
+	              <div class="wrap" id='menu'>
+	                  <p class="form-title">
+	                      Menu</p>
+	                  <form class="login">
+	                  <input type="submit" value="Fields Management" class="btn btn-success btn-sm" id='fieldsManagementButton'/>
+	                  <input type="submit" value="Logs" class="btn btn-success btn-sm"  id='logs'/>
+	                  <input type="submit" value="Experts" class="btn btn-success btn-sm"  id='experts'/>
+	                  <input type="submit" value="Consultants Reports" class="btn btn-success btn-sm"  id='consultantsReports'/>
+	                  <input type="submit" value="Logout" class="btn btn-success btn-sm" id='logout'/>
+	                  </form>
+	              </div>
+	          </div>
+	      </div>
+	  </div>
+    {{/if}}
+	{{#if menuOptionIs "fields"}}
+		{{> fieldsManagement}}
+    {{/if}}
+
 </template>

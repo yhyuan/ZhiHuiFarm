@@ -19,7 +19,7 @@ Meteor.startup(function () {
 
 ///////////////////////////////////////////////////////////////////////////////
 // Party details sidebar
-
+/*
 Template.details.party = function () {
   return Parties.findOne(Session.get("selected"));
 };
@@ -27,6 +27,15 @@ Template.details.party = function () {
 Template.details.anyParties = function () {
   return Parties.find().count() > 0;
 };
+*/
+Template.details.helpers({
+  party: function () {
+    return Parties.findOne(Session.get("selected"));
+  },
+  anyParties: function () {
+    return Parties.find().count() > 0;
+  }  
+});
 
 Template.details.creatorName = function () {
   var owner = Meteor.users.findOne(this.owner);
@@ -266,9 +275,6 @@ var openCreateDialog = function (latlng, boundary) {
   Session.set("showCreateDialog", true);
 };
 
-Template.page.showCreateDialog = function () {
-  return Session.get("showCreateDialog");
-};
 
 Template.createDialog.events({
   'click .save': function (event, template) {
@@ -313,9 +319,6 @@ var openInviteDialog = function () {
   Session.set("showInviteDialog", true);
 };
 
-Template.page.showInviteDialog = function () {
-  return Session.get("showInviteDialog");
-};
 
 Template.inviteDialog.events({
   'click .invite': function (event, template) {
