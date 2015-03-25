@@ -173,6 +173,15 @@ Template.map.created = function() {
     }
   });
 }
+var polygon, boundary = [];
+var calculateDistance = function (latlng1, latlng2) {
+	return Math.abs(latlng1.lat - latlng2.lat) + Math.abs(latlng1.lng - latlng2.lng);
+};
+var calculateCenter = function (latlngs) {
+	var latSum = _.reduce(latlngs, function(total, latlng){ return total + latlng.lat;}, 0.0);
+	var lngSum = _.reduce(latlngs, function(total, latlng){ return total + latlng.lng;}, 0.0);
+	return {lat: latSum/latlngs.length, lng: lngSum/latlngs.length};
+};
 
 Template.map.rendered = function () { 
   // basic housekeeping
@@ -184,15 +193,41 @@ Template.map.rendered = function () {
   // initialize map events
   if (!map) {
     initialize($("#map_canvas")[0], [ 39.56349, 117.55405 ], 13);
-    
+
     map.on("dblclick", function(e) {
       if (! Meteor.userId()) // must be logged in to create parties
         return;
-        
-      openCreateDialog(e.latlng);
+      if (boundary.length >= 2) {
+      	boundary.push(e.latlng);
+      	openCreateDialog(calculateCenter(boundary), boundary);
+      	boundary = [];      	
+      	return;
+      }
+      boundary.push(e.latlng);
+    });    
+    map.on("click", function(e) {
+      if (! Meteor.userId()) // must be logged in to create parties
+        return;
+      /*if ((boundary.length >= 3) && (calculateDistance(boundary[0], e.latlng) < 0.00001)) {
+      	openCreateDialog(calculateCenter(boundary), boundary);
+      	boundary = [];      	
+      	return;
+      }*/
+      boundary.push(e.latlng);
     });
     
-    
+    map.on("mousemove", function(e) {
+      if (! Meteor.userId()) // must be logged in to create parties
+        return;
+      if (boundary.length >= 1) {
+      	if (polygon) {
+      		map.removeLayer(polygon);	
+      	}
+
+      	polygon = L.polygon( boundary.concat([e.latlng]));
+      	map.addLayer(polygon);
+      }
+    });    
     var self = this;
     Meteor.autorun(function() {
       var selectedParty = Parties.findOne(Session.get("selected"));
@@ -224,8 +259,9 @@ Template.map.rendered = function () {
 ///////////////////////////////////////////////////////////////////////////////
 // Create Party dialog
 
-var openCreateDialog = function (latlng) {
+var openCreateDialog = function (latlng, boundary) {
   Session.set("createCoords", latlng);
+  Session.set("createBoundary", boundary);
   Session.set("createError", null);
   Session.set("showCreateDialog", true);
 };
@@ -240,12 +276,14 @@ Template.createDialog.events({
     var description = template.find(".description").value;
     var public = ! template.find(".private").checked;
     var latlng = Session.get("createCoords");
+    var boundary = Session.get("createBoundary");
 
     if (title.length && description.length) {
       var id = createParty({
         title: title,
         description: description,
         latlng: latlng,
+        boundary: boundary,
         public: public
       });
 

@@ -4,7 +4,11 @@
 </head>
 
 <body>
-  {{> page}}
+	{{#if currentUser}}
+        {{> dashboard}}
+    {{else}}
+        {{> login}}
+    {{/if}}
 </body>
 
 <template name="page">
