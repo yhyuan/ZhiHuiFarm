@@ -7,7 +7,7 @@
 	                  <p class="form-title">
 	                      Menu</p>
 	                  <form class="login">
-	                  <input type="submit" value="Fields Management" class="btn btn-success btn-sm" id='fieldsManagementButton'/>
+	                  <input type="submit" value="Fields" class="btn btn-success btn-sm" id='fieldsButton'/>
 	                  <input type="submit" value="Logs" class="btn btn-success btn-sm"  id='logs'/>
 	                  <input type="submit" value="Experts" class="btn btn-success btn-sm"  id='experts'/>
 	                  <input type="submit" value="Consultants Reports" class="btn btn-success btn-sm"  id='consultantsReports'/>
@@ -19,7 +19,7 @@
 	  </div>
     {{/if}}
 	{{#if menuOptionIs "fields"}}
-		{{> fieldsManagement}}
+		{{> fields}}
     {{/if}}
 
 </template>

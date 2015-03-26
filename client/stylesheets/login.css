@@ -180,3 +180,7 @@ form.login a:hover
     padding: 10px;
     left: 45%;
 }
+
+.bg-outer {
+  background-color: #FFFFFF;
+}

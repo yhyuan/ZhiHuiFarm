@@ -23,7 +23,7 @@ Parties.allow({
     if (userId !== party.owner)
       return false; // not the owner
 
-    var allowed = ["title", "description", "latlng", "boundary"];
+    var allowed = ["title", "description", "latlng", "boundary", "area"];
     if (_.difference(fields, allowed).length)
       return false; // tried to write to forbidden field
 
@@ -70,6 +70,11 @@ var CoordinateArray = Match.Where(function (xs) {
   return true;
 });
 
+var LargeThanZeroNumber = Match.Where(function (x) {
+  check(x, Number);
+  return x > 0;
+});
+
 createParty = function (options) {
   var id = Random.id();
   Meteor.call('createParty', _.extend({ _id: id }, options));
@@ -84,6 +89,7 @@ Meteor.methods({
       description: NonEmptyString,
       latlng: Coordinate,
       boundary: CoordinateArray,
+      area: LargeThanZeroNumber,
       public: Match.Optional(Boolean),
       _id: Match.Optional(NonEmptyString)
     });
@@ -101,6 +107,7 @@ Meteor.methods({
       owner: this.userId,
       latlng: options.latlng,
       boundary: options.boundary,
+      area: options.area,
       title: options.title,
       description: options.description,
       public: !! options.public,

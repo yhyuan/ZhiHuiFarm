@@ -3,7 +3,7 @@ Template.dashboard.events({
         event.preventDefault();
         Meteor.logout();
     },
-    'click #fieldsManagementButton': function(event){
+    'click #fieldsButton': function(event){
         event.preventDefault();
         Session.set("menuOption", 'fields');
     }    

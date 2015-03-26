@@ -6,11 +6,13 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
     	Session.set("signup", true);
     });
     $('#goBackButton').click(function(event) {
-    	console.log('OK');
+    	//console.log('OK');
     	Session.set("menuOption", 'menu');
     });
     
     Session.set("menuOption", 'menu');
+	Session.set("fieldsMenuOption", 'main');
+	Session.set("showCreateDialog", false);   
 });
 
  Template.login.events({
