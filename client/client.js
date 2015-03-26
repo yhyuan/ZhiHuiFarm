@@ -145,7 +145,7 @@ var initialize = function(element, centroid, zoom, features) {
     layers:[normal]
   }).setView(new L.LatLng(centroid[0], centroid[1]), zoom);
   L.control.layers(baseLayers,overlayLayers).addTo(map);
-  L.control.zoom({zoomInTitle:'放大', zoomOutTitle:'缩小'}).addTo(map);
+//  L.control.zoom({zoomInTitle:'放大', zoomOutTitle:'缩小'}).addTo(map);
 
   //L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {opacity: .5}).addTo(map);
 

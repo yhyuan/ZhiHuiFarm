@@ -5,6 +5,11 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
     $('#signupButton').click(function(event) {
     	Session.set("signup", true);
     });
+    $('#goBackButton').click(function(event) {
+    	console.log('OK');
+    	Session.set("menuOption", 'menu');
+    });
+    
     Session.set("menuOption", 'menu');
 });
 
