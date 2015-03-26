@@ -122,24 +122,42 @@ $(window).resize(function () {
 
 var map, markers = [ ];
 
-var initialize = function(element, centroid, zoom, features) { 
+var initialize = function(element, centroid, zoom, features) {
+  var normalm = L.tileLayer.chinaProvider('TianDiTu.Normal.Map',{maxZoom:18,minZoom:5}),
+      normala = L.tileLayer.chinaProvider('TianDiTu.Normal.Annotion',{maxZoom:18,minZoom:5}),
+      imgm = L.tileLayer.chinaProvider('TianDiTu.Satellite.Map',{maxZoom:18,minZoom:5}),
+      imga = L.tileLayer.chinaProvider('TianDiTu.Satellite.Annotion',{maxZoom:18,minZoom:5});
+  var normal = L.layerGroup([normalm,normala]),
+      image = L.layerGroup([imgm,imga]);
+  var baseLayers = {
+      "地图":normal,
+      "影像":image,
+  }
+  var overlayLayers = {
+      
+  }
+
   map = L.map(element, {
     scrollWheelZoom: false,
     doubleClickZoom: false,
     boxZoom: false,
-    touchZoom: false
+    touchZoom: false,
+    layers:[normal]
   }).setView(new L.LatLng(centroid[0], centroid[1]), zoom);
-  
-  L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {opacity: .5}).addTo(map);
+  L.control.layers(baseLayers,overlayLayers).addTo(map);
+  L.control.zoom({zoomInTitle:'放大', zoomOutTitle:'缩小'}).addTo(map);
+
+  //L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {opacity: .5}).addTo(map);
 
   map.attributionControl.setPrefix('');
-  
+  /*
   var attribution = new L.Control.Attribution();
   attribution.addAttribution("Geocoding data &copy; 2013 <a href='http://open.mapquestapi.com'>MapQuest, Inc.</a>");
   attribution.addAttribution("Map tiles by <a href='http://stamen.com'>Stamen Design</a> under <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a>.");
   attribution.addAttribution("Data by <a href='http://openstreetmap.org'>OpenStreetMap</a> under <a href='http://creativecommons.org/licenses/by-sa/3.0'>CC BY SA</a>.");
   
   map.addControl(attribution);
+  */
 }
 
 var addMarker = function(marker) {
