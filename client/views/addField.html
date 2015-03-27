@@ -18,13 +18,13 @@
         <div id="message"> {{_ "tapMapMessage"}}</div>
       {{/if}}
       {{#if addFieldStepIs "thirdStep"}}
-        <div id="message"> {{_ "tapMapMessage"}} <input type="submit" value="{{_ "clear"}}" class="btn btn-default btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldClearButton'/></div>
+        <div id="message"> {{_ "tapMapMessage"}} <input type="submit" value="{{_ "clear"}}" class="btn btn-default btn-sm" onclick="window.ZhiHuiFarmUI.clearMap();" id='addFieldClearButton'/></div>
       {{/if}}
       {{#if addFieldStepIs "fourthStep"}}
-        <div id="message"> {{_ "tapOriginalMessage"}} <input type="submit" value="{{_ "clear"}}" class="btn btn-default btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldClearButton'/></div>
+        <div id="message"> {{_ "tapOriginalMessage"}} <input type="submit" value="{{_ "clear"}}" class="btn btn-default btn-sm" onclick="window.ZhiHuiFarmUI.clearMap();" id='addFieldClearButton'/></div>
       {{/if}}
       {{#if addFieldStepIs "fifthStep"}}
-        <div id="message"> {{_ "dragPointsMessage"}} <input type="submit" value="{{_ "clear"}}" class="btn btn-default btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldClearButton'/> <input type="submit" value="{{_ "done"}}" class="btn btn-primary btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldDoneButton'/></div>
+        <div id="message"> {{_ "dragPointsMessage"}} <input type="submit" value="{{_ "clear"}}" class="btn btn-default btn-sm" onclick="window.ZhiHuiFarmUI.clearMap();" id='addFieldClearButton'/> <input type="submit" value="{{_ "done"}}" class="btn btn-primary btn-sm" onclick="window.ZhiHuiFarmUI.doneMap();" id='addFieldDoneButton'/></div>
       {{/if}}
 
         {{> map}}    

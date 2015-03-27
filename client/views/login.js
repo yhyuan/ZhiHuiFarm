@@ -13,6 +13,8 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
     Session.set("menuOption", 'menu');
 	Session.set("fieldsMenuOption", 'main');
 	Session.set("showCreateDialog", false);
+	L.Icon.Default.imagePath = 'images';
+//	$(window).ZhiHuiFarmUI = {};
 	//Session.set("addFieldStep", 'firstStep');
 });
 

@@ -24,6 +24,7 @@ Template.createDialog.events({
       if (! public && Meteor.users.find().count() > 1)
         openInviteDialog();
       */
+      Session.set("fieldsMenuOption", 'main');
       Session.set("showCreateDialog", false);
     } else {
       Session.set("createError",
