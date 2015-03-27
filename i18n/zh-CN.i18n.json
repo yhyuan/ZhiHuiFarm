@@ -1,0 +1,16 @@
+{ "signin": "登陆",
+"email": "电子邮件",
+"password": "密码",
+"smartFarm": "智慧农场",
+"signup": "注册",
+"pleaseSignup": "请注册",
+"menu": "菜单",
+"fields": "农田管理",
+"logs": "生产日志",
+"finance": "财务管理",
+"experts": "专家答疑",
+"consultants": "咨询报告",
+"logout" : "退出",
+"goBack": "返回",
+"addField": "添加农田"
+  }

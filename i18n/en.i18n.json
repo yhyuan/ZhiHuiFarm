@@ -1,0 +1,16 @@
+{ "signin": "Sign In",
+"email": "Email",
+"password": "Password",
+"smartFarm": "eSmart Farm",
+"signup": "Sign Up",
+"pleaseSignup": "Please Signup",
+"menu": "Menu",
+"fields": "Fields",
+"logs": "Logs",
+"finance": "Fiance",
+"experts": "Experts",
+"consultants": "Consultants",
+"logout" : "Logout",
+"goBack": "Go Back",
+"addField": "Add Field"
+ }
