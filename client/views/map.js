@@ -23,8 +23,8 @@ var initialize = function(element, centroid, zoom, features) {
   var normal = L.layerGroup([normalm,normala]),
       image = L.layerGroup([imgm,imga]);
   var baseLayers = {
-      "地图":normal,
       "影像":image,
+       "地图":normal
   }
   var overlayLayers = {
       
@@ -66,12 +66,21 @@ var initialize = function(element, centroid, zoom, features) {
     map.on("click", function(e) {
       if (! Meteor.userId()) // must be logged in to create parties
         return;
+      //alert('click');
       /*if ((boundary.length >= 3) && (calculateDistance(boundary[0], e.latlng) < 0.00001)) {
         openCreateDialog(calculateCenter(boundary), boundary);
         boundary = [];        
         return;
       }*/
       boundary.push(e.latlng);
+      if (boundary.length >= 1) {
+        if (polygon) {
+          map.removeLayer(polygon); 
+        }
+
+        polygon = L.polygon( boundary.concat([e.latlng]));
+        map.addLayer(polygon);
+      }
     });
     
     map.on("mousemove", function(e) {
