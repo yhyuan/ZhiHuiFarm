@@ -12,5 +12,8 @@
 "consultants": "咨询报告",
 "logout" : "退出",
 "goBack": "返回",
-"addField": "添加农田"
+"addField": "添加农田",
+"fieldName": "农田名称",
+"cancel": "取消",
+"fieldStaffs": "农田员工"
   }

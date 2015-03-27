@@ -12,5 +12,8 @@
 "consultants": "Consultants",
 "logout" : "Logout",
 "goBack": "Go Back",
-"addField": "Add Field"
+"addField": "Add Field",
+"fieldName": "Field Name",
+"cancel": "Cancel",
+"fieldStaffs": "Field Staffs"
  }

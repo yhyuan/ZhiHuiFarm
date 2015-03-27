@@ -3,7 +3,7 @@
   <div class="modal">
     <div class="modal-header">
       <button type="button" class="close cancel">&times;</button>
-      <h3>Add Field</h3>
+      <h3>{{_ "addField"}}</h3>
     </div>
 
     <div class="modal-body">
@@ -11,17 +11,17 @@
         <div class="alert alert-error">{{error}}</div>
       {{/if}}
 
-      <label>Name</label>
+      <label>{{_ "fieldName"}}</label>
       <input type="text" class="title span5">
 
-      <label>Workers</label>
+      <label>{{_ "fieldStaffs"}}</label>
       <textarea class="description span5"></textarea>
 
     </div>
 
     <div class="modal-footer">
-      <a href="#" class="btn cancel">Cancel</a>
-      <a href="#" class="btn btn-primary save">Add Field</a>
+      <a href="#" class="btn cancel">{{_ "cancel"}}</a>
+      <a href="#" class="btn btn-primary save">{{_ "addField"}}</a>
     </div>
   </div>
 </template>
