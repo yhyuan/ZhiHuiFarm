@@ -2,49 +2,31 @@
   {{#if showCreateDialog}}
     {{> createDialog}}
   {{/if}}
-<!--
-  {{#if showInviteDialog}}
-    {{> inviteDialog}}
-  {{/if}}-->
-    <div class="navbar">
+    <div class="navbar bg-outer">
         <div class="navbar-inner">
           <div class="container">
             <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('fieldsMenuOption', 'main');" id='goBackAddFieldButton'/>
-            <!--<div class="nav pull-right">
-                <input type="submit" value="Save" class="btn btn-success btn-sm" id='saveFieldButton'/>
-            </div>-->
           </div>
         </div>
     </div>
 
     <div class="bg-outer">
-      Please click on the map to start and double click on the map to stop the editing. 
-          {{> map}}    
-    </div>
+      {{#if addFieldStepIs "firstStep"}}
+        <div id="message"> {{_ "findLocationMessage"}} <input type="submit" value="{{_ "start"}}" class="btn btn-success btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldStartButton'/></div>
+      {{/if}}
+      {{#if addFieldStepIs "secondStep"}}
+        <div id="message"> {{_ "tapMapMessage"}}</div>
+      {{/if}}
+      {{#if addFieldStepIs "thirdStep"}}
+        <div id="message"> {{_ "tapMapMessage"}} <input type="submit" value="{{_ "clear"}}" class="btn btn-default btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldClearButton'/></div>
+      {{/if}}
+      {{#if addFieldStepIs "fourthStep"}}
+        <div id="message"> {{_ "tapOriginalMessage"}} <input type="submit" value="{{_ "clear"}}" class="btn btn-default btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldClearButton'/></div>
+      {{/if}}
+      {{#if addFieldStepIs "fifthStep"}}
+        <div id="message"> {{_ "dragPointsMessage"}} <input type="submit" value="{{_ "clear"}}" class="btn btn-default btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldClearButton'/> <input type="submit" value="{{_ "done"}}" class="btn btn-primary btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldDoneButton'/></div>
+      {{/if}}
 
-<!--
-  <div class="container-fluid">
-    <div class="row-fluid">-->
-<!--
-<ul class="list-group">
-  <li class="list-group-item">First item</li>
-  <li class="list-group-item">Second item</li>
-  <li class="list-group-item">Third item</li>
-</ul>-->
-<!--
-      <div class="span4">
-        {{> details}}
-        {{#if currentUser}}
-        <div class="pagination-centered">
-          <em><small>Double click the map to post a party!</small></em>
-        </div>
-        {{/if}}
-      </div>
-      <div class="span8">
-        {{#if currentUser}}
-          {{> map}}
-        {{/if}}
-      </div> -->
-<!--    </div>
-  </div>-->
+        {{> map}}    
+    </div>
 </template>

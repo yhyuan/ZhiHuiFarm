@@ -12,7 +12,8 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
     
     Session.set("menuOption", 'menu');
 	Session.set("fieldsMenuOption", 'main');
-	Session.set("showCreateDialog", false);   
+	Session.set("showCreateDialog", false);
+	//Session.set("addFieldStep", 'firstStep');
 });
 
  Template.login.events({

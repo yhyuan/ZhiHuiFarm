@@ -15,5 +15,12 @@
 "addField": "Add Field",
 "fieldName": "Field Name",
 "cancel": "Cancel",
-"fieldStaffs": "Field Staffs"
+"fieldStaffs": "Field Staffs",
+"start": "Start",
+"clear": "Clear",
+"done": "Done",
+"findLocationMessage": "Please find your fields and click on the Start button to create your field.",
+"tapMapMessage": "Tap to add points around your field",
+"tapOriginalMessage": "Tap your original point to complete the shape",
+"dragPointsMessage": "Drag points to modify your field shape"
  }
