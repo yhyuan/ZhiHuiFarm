@@ -3,10 +3,10 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
  */
  $(document).ready(function () {
     $('#signupButton').click(function(event) {
+    	//alert('ok');
     	Session.set("signup", true);
     });
     $('#goBackButton').click(function(event) {
-    	//console.log('OK');
     	Session.set("menuOption", 'menu');
     });
     

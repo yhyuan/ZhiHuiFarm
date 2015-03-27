@@ -4,6 +4,7 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
  
  Template.signup.events({
 	'submit form': function(event, template){
+		//console.log(event);
 	    event.preventDefault();
 	    var signupEmail = template.find('#signup-email').value;
 	    var signupPassword1 = template.find('#signup-password1').value;
@@ -21,7 +22,7 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
 	    		console.log("Password does not match.");
 	    	}
 	    } else {
-			console.log("Unknown form is submitted.");
+			Session.set("signup", false);
 	    }
 	}
 
