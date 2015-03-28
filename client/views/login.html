@@ -9,13 +9,16 @@
                   <input type="text" placeholder="{{_ "email"}}" id="login-email"/>
                   <input type="password" placeholder="{{_ "password"}}" id="login-password"/>
                   <input type="submit" value="{{_ "signin"}}" class="btn btn-success btn-sm" />
+                  <input type="submit" value="{{_ "signup"}}" class="btn btn-success btn-sm" onclick="Session.set('signup', true);" id='signupButton'/>
+                  <input type="submit" value="{{_ "resetPassword"}}" class="btn btn-success btn-sm" onclick="Session.set('resetPassword', true);" id='resetPasswordButton'/>
+                  <!--
                   <div class="remember-forgot">
                       <div class="row">
                           <div class="col-md-6 forgot-pass-content">
-                              <a class="forgot-pass" onlick="Session.set('signup', true);" id='signupButton'>{{_ "signup"}}</a>
+                              <a class="forgot-pass" onlick="window.ZhiHuiFarmUI.openSignUp();" id='signupButton'>{{_ "signup"}}</a>
                           </div>                        
                       </div>
-                  </div>
+                  </div>-->
                   </form>
               </div>
           </div>

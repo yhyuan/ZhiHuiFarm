@@ -2,10 +2,10 @@
 http://bootsnipp.com/snippets/featured/full-page-sign-in
  */
  $(document).ready(function () {
-    $('#signupButton').click(function(event) {
+    /*$('#signupButton').click(function(event) {
     	//alert('ok');
     	Session.set("signup", true);
-    });
+    });*/
     $('#goBackButton').click(function(event) {
     	Session.set("menuOption", 'menu');
     });
@@ -24,11 +24,11 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
 	    var loginEmail = template.find('#login-email').value;
 	    var loginPassword = template.find('#login-password').value;
 
-	    if ((loginEmail.length > 0) && (loginPassword.length > 0)) {
+	    if ((loginEmail.length > 0) && (loginPassword.length > 0)&&(!Session.get("signup"))&&(!Session.get("resetPassword"))) {
 	    	Meteor.loginWithPassword(loginEmail, loginPassword);
-	    } else {
+	    } /*else {
 			console.log("Unknown form is submitted.");
-	    }
+	    }*/
 	}
 
 });

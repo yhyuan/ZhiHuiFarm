@@ -2,6 +2,10 @@
     {{#if isSignupVisible}}
       {{> signup}}
     {{else}}
-      {{> login}}
+	    {{#if isResetPasswordVisible}}
+    	  {{> resetPassword}}
+    	{{else}}
+	      	{{> login}}
+	    {{/if}}  	
     {{/if}}
 </template>
