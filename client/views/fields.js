@@ -10,5 +10,17 @@ Template.fields.helpers({
   },
   fieldsMenuOptionIs: function (fieldsMenuOption) {
     return Session.get("fieldsMenuOption") === fieldsMenuOption;
-  }
+  },
+  fields: function () {
+      return Parties.find({});
+    }
 });
+
+if (!window.ZhiHuiFarmUI) {
+    window.ZhiHuiFarmUI = {};
+}
+window.ZhiHuiFarmUI.viewField = function (_id) {
+  Session.set("fieldsMenuOption", "view");
+  Session.set("currentViewedField", Parties.findOne(_id));
+};
+

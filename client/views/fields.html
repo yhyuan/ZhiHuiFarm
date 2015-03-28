@@ -24,23 +24,15 @@
         <div class="panel panel-default">
           <table class="table table-hover">
             <tbody>
-              <tr>
-                <td>
-                  <span class="glyphicon glyphicon-file"></span>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                </td>
-                <td class="text-right text-nowrap">
-                  <button class="btn btn-xs btn-primary">View</button>
-                  <button class="btn btn-xs btn-warning">Edit</button>
-                  <button class="btn btn-xs btn-danger">Delete</button>
-                </td>
-              </tr>
+            {{#each fields}}
+              {{> field}}
+            {{/each}}
             </tbody>
           </table>
         </div>
       </div>
     {{else}}
-       You have no field. Please use the Add tool to add fields. 
+       {{_ "noFieldMessage"}}
     {{/if}}  
     </div>
   {{/if}}
@@ -50,33 +42,14 @@
   {{#if fieldsMenuOptionIs "view"}}
     {{> viewField}}
   {{/if}}
-  {{#if fieldsMenuOptionIs "edit"}}
-    {{> editField}}
-  {{/if}}
-
-<!--
-  <div class="container-fluid">
-    <div class="row-fluid">-->
-<!--
-<ul class="list-group">
-  <li class="list-group-item">First item</li>
-  <li class="list-group-item">Second item</li>
-  <li class="list-group-item">Third item</li>
-</ul>-->
-<!--
-      <div class="span4">
-        {{> details}}
-        {{#if currentUser}}
-        <div class="pagination-centered">
-          <em><small>Double click the map to post a party!</small></em>
-        </div>
-        {{/if}}
-      </div>
-      <div class="span8">
-        {{#if currentUser}}
-          {{> map}}
-        {{/if}}
-      </div> -->
-<!--    </div>
-  </div>-->
+</template>
+<template name="field">
+ <tr>
+    <td>
+      {{title}}， 
+    </td>
+    <td class="text-right text-nowrap">
+      <button class="btn btn-xs btn-primary" onclick="window.ZhiHuiFarmUI.viewField('{{_id}}');">{{_ "view"}}</button>
+    </td>
+  </tr>
 </template>
