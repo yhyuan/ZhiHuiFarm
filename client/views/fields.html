@@ -1,11 +1,4 @@
 <template name="fields">
-  <!--{{#if showCreateDialog}}
-    {{> createDialog}}
-  {{/if}}
-
-  {{#if showInviteDialog}}
-    {{> inviteDialog}}
-  {{/if}}-->
   {{#if fieldsMenuOptionIs "main"}}
     <div class="navbar">
         <div class="navbar-inner">
@@ -46,7 +39,7 @@
 <template name="field">
  <tr>
     <td>
-      {{title}}， {{area}}, {{boundary}}
+      {{title}}， {{calculateArea boundary}} {{_ "hectare"}}
     </td>
     <td class="text-right text-nowrap">
       <button class="btn btn-xs btn-primary" onclick="window.ZhiHuiFarmUI.viewField('{{_id}}');">{{_ "view"}}</button>

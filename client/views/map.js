@@ -34,70 +34,10 @@ window.ZhiHuiFarmUI.clearMap = function () {
     Session.set('addFieldStep', 'firstStep');
 };
 window.ZhiHuiFarmUI.doneMap = function () {
-    var calculateCenter = function(latlngs) {
-        var latSum = _.reduce(latlngs, function(total, latlng) {
-            return total + latlng.lat;
-        }, 0.0);
-        var lngSum = _.reduce(latlngs, function(total, latlng) {
-            return total + latlng.lng;
-        }, 0.0);
-        return {
-            lat: latSum / latlngs.length,
-            lng: lngSum / latlngs.length
-        };
-    };
-    var calculateArea = function(coords) {
-        var RADIUS = 6378137; /*wgs84*/
-        /**
-         * Calculate the approximate area of the polygon were it projected onto
-         *     the earth.  Note that this area will be positive if ring is oriented
-         *     clockwise, otherwise it will be negative.
-         *
-         * Reference:
-         * Robert. G. Chamberlain and William H. Duquette, "Some Algorithms for
-         *     Polygons on a Sphere", JPL Publication 07-03, Jet Propulsion
-         *     Laboratory, Pasadena, CA, June 2007 http://trs-new.jpl.nasa.gov/dspace/handle/2014/40409
-         *
-         * Returns:
-         * {float} The approximate signed geodesic area of the polygon in square
-         *     meters.
-         */
+    Session.set("createdFieldBoundary", _.map(markers, function(m) {return m.getLatLng();}));
+    Session.set("createError", null);
+    Session.set("showCreateDialog", true);
 
-        var ringArea = function(coords) {
-            var area = 0;
-            var rad = function(_) {
-                return _ * Math.PI / 180;
-            };
-            if (coords.length > 2) {
-                var p1, p2;
-                for (var i = 0; i < coords.length - 1; i++) {
-                    p1 = coords[i];
-                    p2 = coords[i + 1];
-                    area += rad(p2[0] - p1[0]) * (2 + Math.sin(rad(p1[1])) + Math.sin(rad(p2[1])));
-                }
-
-                area = area * RADIUS * RADIUS / 2;
-            }
-
-            return area;
-        }
-        var area = 0;
-        if (coords && coords.length > 0) {
-            area += Math.abs(ringArea(coords[0]));
-            for (var i = 1; i < coords.length; i++) {
-                area -= Math.abs(ringArea(coords[i]));
-            }
-        }
-        return area;
-    };
-    var openCreateDialog = function(field) {
-        Session.set("createField", field);
-        Session.set("createError", null);
-        Session.set("showCreateDialog", true);
-    };    
-    var latlngs = _.map(markers, function(m) {return m.getLatLng();});
-    var latlngsArray = _.map(markers, function(m) {return [m.getLatLng().lat, m.getLatLng().lng];});
-    openCreateDialog({center: calculateCenter(latlngs), boundary: boundary, area: calculateArea([latlngsArray])});
 };
 
 
@@ -105,6 +45,8 @@ var map, polyline, dragableMarker, markers = [];
 var polygon, boundary = [];
 //var midMarkers = [];
 var initialize = function(element, centroid, zoom, features) {
+    //boundary = [];
+    window.ZhiHuiFarmUI.clearMap();
     /*var normalm = L.tileLayer.chinaProvider('TianDiTu.Normal.Map',{maxZoom:18,minZoom:5}),
         normala = L.tileLayer.chinaProvider('TianDiTu.Normal.Annotion',{maxZoom:18,minZoom:5}),*/
     var imgm = L.tileLayer.chinaProvider('TianDiTu.Satellite.Map', {
@@ -273,33 +215,6 @@ var initialize = function(element, centroid, zoom, features) {
         onClick(e);
     });
 }
-/*
-var addMarker = function(marker) {
-    map.addLayer(marker);
-    markers[marker.options._id] = marker;
-}
-
-var removeMarker = function(_id) {
-    var marker = markers[_id];
-    if (map.hasLayer(marker)) map.removeLayer(marker);
-}
-
-var createIcon = function(party) {
-    var className = 'leaflet-div-icon ';
-    className += party.public ? 'public' : 'private';
-    return L.divIcon({
-        iconSize: [30, 30],
-        html: '<b>' + attending(party) + '</b>',
-        className: className
-    });
-}
-*/
-
-
-/*
-var calculateDistance = function (latlng1, latlng2) {
-  return Math.abs(latlng1.lat - latlng2.lat) + Math.abs(latlng1.lng - latlng2.lng);
-};*/
 
 var calculateDistance = function(fromLatlng, toLatlng) {
     var EARTH_RADIUS = 6378137; // in meter

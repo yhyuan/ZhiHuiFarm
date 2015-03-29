@@ -5,25 +5,14 @@ Template.createDialog.events({
     var title = template.find(".title").value;
     var description = template.find(".description").value;
     var public = false; //! template.find(".private").checked;
-    var field = Session.get("createField");
-    var latlng = field.center;
-    var boundary = field.boundary;
-    var area = field.area;
-
+    var boundary = Session.get("createdFieldBoundary");
     if (title.length && description.length) {
       var id = createParty({
         title: title,
-        description: description,
-        latlng: latlng,
+        description: description.split(";"),
         boundary: boundary,
-        area: area, 
         public: public
       });
-      /*
-      Session.set("selected", id);
-      if (! public && Meteor.users.find().count() > 1)
-        openInviteDialog();
-      */
       Session.set("fieldsMenuOption", 'main');
       Session.set("showCreateDialog", false);
     } else {

@@ -42,7 +42,7 @@ Parties.allow({
     if (userId !== party.owner)
       return false; // not the owner
 
-    var allowed = ["title", "description", "latlng", "boundary", "area"];
+    var allowed = ["title", "description", "boundary"];
     if (_.difference(fields, allowed).length)
       return false; // tried to write to forbidden field
 
@@ -69,7 +69,13 @@ var NonEmptyString = Match.Where(function (x) {
   check(x, String);
   return x.length !== 0;
 });
-
+var StringArray = Match.Where(function (xs) {
+  check(xs, Array);
+  for (var i=0;i<xs.length;i++) {
+    check(xs[i], String);
+  }
+  return true;
+});
 var Coordinate = Match.Where(function (x) {
   check(x.lat, Number);
   check(x.lng, Number);
@@ -105,10 +111,8 @@ Meteor.methods({
   createParty: function (options) {
     check(options, {
       title: NonEmptyString,
-      description: NonEmptyString,
-      latlng: Coordinate,
+      description: StringArray,
       boundary: CoordinateArray,
-      area: LargeThanZeroNumber,
       public: Match.Optional(Boolean),
       _id: Match.Optional(NonEmptyString)
     });
@@ -121,14 +125,17 @@ Meteor.methods({
       throw new Meteor.Error(403, "You must be logged in");
 
     var id = options._id || Random.id();
+    //console.log(options.description);
+    var userIds = _.map(options.description, function(email) {
+      return Meteor.users.findOne({"emails.address": email})._id;
+    });
+    //console.log(userIds);
     Parties.insert({
       _id: id,
       owner: this.userId,
-      latlng: options.latlng,
       boundary: options.boundary,
-      area: options.area,
       title: options.title,
-      description: options.description,
+      staffs: userIds,
       public: !! options.public,
       invited: [],
       rsvps: []

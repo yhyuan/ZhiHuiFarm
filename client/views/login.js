@@ -24,7 +24,7 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
 	    var loginEmail = template.find('#login-email').value;
 	    var loginPassword = template.find('#login-password').value;
 
-	    if ((loginEmail.length > 0) && (loginPassword.length > 0)&&(!Session.get("signup"))&&(!Session.get("resetPassword"))) {
+	    if ((loginEmail.length > 0) && (loginPassword.length > 0)&&(!Session.get("signup"))&&(!Session.get("forgetPassword"))) {
 	    	Meteor.loginWithPassword(loginEmail, loginPassword);
 	    } /*else {
 			console.log("Unknown form is submitted.");
