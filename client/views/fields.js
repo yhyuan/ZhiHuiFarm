@@ -95,7 +95,7 @@ if (!window.ZhiHuiFarmUI) {
 window.ZhiHuiFarmUI.viewField = function (_id) {
   Session.set("fieldsMenuOption", "view");
   Session.set("currentViewedField", Parties.findOne(_id));
-  console.log(Session.get("currentViewedField"));
+  //console.log(Session.get("currentViewedField"));
 };
 
 /*

@@ -10,7 +10,6 @@ binary-heap@1.0.3
 blaze@2.1.0
 blaze-tools@1.0.3
 boilerplate-generator@1.0.3
-bootstrap@1.0.1
 callback-hook@1.0.3
 cfs:http-methods@0.0.27
 check@1.0.5
@@ -37,6 +36,7 @@ meteor@1.1.5
 meteor-platform@1.2.2
 minifiers@1.1.4
 minimongo@1.0.7
+mizzao:bootstrap-3@3.3.1_1
 mobile-status-bar@1.0.3
 mongo@1.1.0
 mrt:leaflet@0.3.8
