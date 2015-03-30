@@ -1,7 +1,7 @@
 <template name="addField">
-  {{#if showAddFieldDialog}}
+  <!--{{#if showAddFieldDialog}}
     {{> addFieldDialog}}
-  {{/if}}
+  {{/if}}-->
     <div class="navbar bg-outer">
         <div class="navbar-inner">
           <div class="container">
@@ -9,7 +9,15 @@
           </div>
         </div>
     </div>
+  {{#if showAddFieldDialog}}
+      <div class="bg-outer">
+        <label>{{_ "fieldName"}}</label>
+        <input type="text" class="title span5">
 
+        <label>{{_ "fieldStaffs"}}</label>
+        <textarea class="description span5"></textarea>
+      </div>
+  {{else}}
     <div class="bg-outer">
       {{#if addFieldStepIs "firstStep"}}
         <div id="message"> {{_ "findLocationMessage"}} <input type="submit" value="{{_ "start"}}" class="btn btn-success btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldStartButton'/></div>
@@ -29,4 +37,5 @@
 
         {{> map}}    
     </div>
+  {{/if}}
 </template>

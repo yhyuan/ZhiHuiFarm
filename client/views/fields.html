@@ -1,11 +1,11 @@
 <template name="fields">
   {{#if fieldsMenuOptionIs "main"}}
-    <div class="navbar">
+    <div class="navbar bg-outer">
         <div class="navbar-inner">
           <div class="container">
             <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('menuOption', 'menu');" id='goBackButton'/>
             <div class="nav pull-right">
-                <input type="submit" value="{{_ "addField"}}" class="btn btn-success btn-sm" onclick="Session.set('fieldsMenuOption', 'add');Session.set('addFieldStep', 'firstStep');" id='addFieldButton'/>
+                <input type="submit" value="{{_ "addField"}}" class="btn btn-success btn-sm" onclick="Session.set('fieldsMenuOption', 'add');Session.set('addFieldStep', 'firstStep');Session.set('showAddFieldDialog', false);" id='addFieldButton'/>
             </div>
           </div>
         </div>
