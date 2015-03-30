@@ -36,8 +36,8 @@ window.ZhiHuiFarmUI.clearMap = function () {
 window.ZhiHuiFarmUI.doneMap = function () {
     Session.set("createdFieldBoundary", _.map(markers, function(m) {return m.getLatLng();}));
     Session.set("createError", null);
-    Session.set("showCreateDialog", true);
-    console.log(Session.get("showCreateDialog"));
+    Session.set("showAddFieldDialog", true);
+    //console.log(Session.get("showCreateDialog"));
 };
 
 

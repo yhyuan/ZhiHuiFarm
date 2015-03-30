@@ -1,8 +1,8 @@
 Template.addField.helpers({
-  showCreateDialog: function () {
-  	console.log("update");
-    console.log(Session.get("showCreateDialog"));
-    return Session.get("showCreateDialog");
+  showAddFieldDialog: function () {
+  	//console.log("update");
+    //console.log(Session.get("showCreateDialog"));
+    return Session.get("showAddFieldDialog");
   },
   addFieldStepIs: function (step) {
     return Session.get("addFieldStep") === step;
