@@ -1,12 +1,14 @@
 <template name="viewField">
-  {{#if fieldsMenuOptionIs "view"}}
+  {{#if isBeingEdited }}
+    {{> editField}}
+  {{else}}
     <div class="navbar bg-outer">
         <div class="navbar-inner">
           <div class="container">
             <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('fieldsMenuOption', 'main');" id='goBackButton'/>
             {{#if isPartyOwner}}
                 <div class="nav pull-right">
-                  <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="Session.set('fieldsMenuOption', 'edit');" id='editFieldButton'/>
+                  <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="Session.set('isCurrentFieldsBeingEdit', true);" id='editFieldButton'/>
                 </div>
             {{/if}}
           </div>
@@ -59,35 +61,6 @@
       <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick=""/>
    </div>
 </div>  </center>
-    </div>
+    </div>  
   {{/if}}
-  {{#if fieldsMenuOptionIs "edit"}}
-    {{> editField}}
-  {{/if}}
-
-<!--
-  <div class="container-fluid">
-    <div class="row-fluid">-->
-<!--
-<ul class="list-group">
-  <li class="list-group-item">First item</li>
-  <li class="list-group-item">Second item</li>
-  <li class="list-group-item">Third item</li>
-</ul>-->
-<!--
-      <div class="span4">
-        {{> details}}
-        {{#if currentUser}}
-        <div class="pagination-centered">
-          <em><small>Double click the map to post a party!</small></em>
-        </div>
-        {{/if}}
-      </div>
-      <div class="span8">
-        {{#if currentUser}}
-          {{> map}}
-        {{/if}}
-      </div> -->
-<!--    </div>
-  </div>-->
 </template>

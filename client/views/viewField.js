@@ -2,9 +2,12 @@ Template.viewField.helpers({
   isPartyOwner: function () {
     return Session.get("currentViewedField").owner === Meteor.userId();
   },
-  fieldsMenuOptionIs: function (fieldsMenuOption) {
+  /*fieldsMenuOptionIs: function (fieldsMenuOption) {
     return Session.get("fieldsMenuOption") === fieldsMenuOption;
-  },
+  },*/
+  isBeingEdited: function () {
+    return Session.get("isCurrentFieldsBeingEdit");
+  },  
   title: function () {
   	return Session.get("currentViewedField").title;
   },
@@ -17,5 +20,6 @@ if (!window.ZhiHuiFarmUI) {
     window.ZhiHuiFarmUI = {};
 }
 window.ZhiHuiFarmUI.editField = function () {
-  Session.set("fieldsMenuOption", "edit");
+  //console.log('OK');
+  Session.set("isCurrentFieldsBeingEdit", true);
 };

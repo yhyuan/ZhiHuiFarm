@@ -98,6 +98,7 @@ window.ZhiHuiFarmUI.viewField = function (_id) {
   var field = Parties.findOne(_id);
   Session.set("currentViewedField", field);
   Session.set("currentViewedFieldArea", calculateArea(field.boundary));
+  Session.set("isCurrentFieldsBeingEdit", false);
   //console.log(Session.get("currentViewedField"));
 };
 
