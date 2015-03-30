@@ -6,3 +6,4 @@ Template.addField.helpers({
     return Session.get("addFieldStep") === step;
   }
 });
+

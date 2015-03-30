@@ -9,25 +9,7 @@ Template.fields.helpers({
       return Parties.find({});
     }
 });
-
-Template.field.helpers({
-  calculateCenter: function (latlngs) {
-   var latSum = _.reduce(latlngs, function(total, latlng) {
-        return total + latlng.lat;
-    }, 0.0);
-    var lngSum = _.reduce(latlngs, function(total, latlng) {
-        return total + latlng.lng;
-    }, 0.0);
-    var center = {
-        lat: latSum / latlngs.length,
-        lng: lngSum / latlngs.length
-    };
-    return '' + center.lat + ', ' + center.lng;
-   },
-   convertBoundaryString: function (latlngs) {
-    return '[' + _.map(latlngs, function(latlng) {return '[' + latlng.lat + ',' + latlng.lng + ']'}).join(',') + ']';
-   },
-   calculateArea: function(latlngs) {
+var calculateArea = function(latlngs) {
       var calculateDistance = function(fromLatlng, toLatlng) {
           var EARTH_RADIUS = 6378137; // in meter
 
@@ -86,15 +68,36 @@ Template.field.helpers({
             }
         }
         return (area/10000).toFixed(2); //Convert it from sqared meter to hectare
-    }   
+    };
+Template.field.helpers({
+  calculateCenter: function (latlngs) {
+   var latSum = _.reduce(latlngs, function(total, latlng) {
+        return total + latlng.lat;
+    }, 0.0);
+    var lngSum = _.reduce(latlngs, function(total, latlng) {
+        return total + latlng.lng;
+    }, 0.0);
+    var center = {
+        lat: latSum / latlngs.length,
+        lng: lngSum / latlngs.length
+    };
+    return '' + center.lat + ', ' + center.lng;
+   },
+   convertBoundaryString: function (latlngs) {
+    return '[' + _.map(latlngs, function(latlng) {return '[' + latlng.lat + ',' + latlng.lng + ']'}).join(',') + ']';
+   },
+   calculateArea: calculateArea
 });
+
 
 if (!window.ZhiHuiFarmUI) {
     window.ZhiHuiFarmUI = {};
 }
 window.ZhiHuiFarmUI.viewField = function (_id) {
   Session.set("fieldsMenuOption", "view");
-  Session.set("currentViewedField", Parties.findOne(_id));
+  var field = Parties.findOne(_id);
+  Session.set("currentViewedField", field);
+  Session.set("currentViewedFieldArea", calculateArea(field.boundary));
   //console.log(Session.get("currentViewedField"));
 };
 

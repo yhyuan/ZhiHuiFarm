@@ -127,7 +127,8 @@ Meteor.methods({
     var id = options._id || Random.id();
     //console.log(options.description);
     var userIds = _.map(options.description, function(email) {
-      return Meteor.users.findOne({"emails.address": email})._id;
+      var user = Meteor.users.findOne({"emails.address": email});
+      return (user) ? user._id : '';
     });
     //console.log(userIds);
     Parties.insert({

@@ -16,6 +16,7 @@
 "fieldName": "农田名称",
 "cancel": "取消",
 "fieldStaffs": "农田员工",
+"fieldStaffsNote": "Please add your staff Email (separated by ;) which is used to register this site. The staffs have all the privileges to manage your fields, but they do not have the privileges to edit and delete your fields",
 "start": "开始",
 "clear": "清空",
 "done": "结束",

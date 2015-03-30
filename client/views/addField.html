@@ -1,7 +1,7 @@
 <template name="addField">
-  <!--{{#if showAddFieldDialog}}
-    {{> addFieldDialog}}
-  {{/if}}-->
+ 
+  {{> createDialog}}
+ 
     <div class="navbar bg-outer">
         <div class="navbar-inner">
           <div class="container">
@@ -9,15 +9,21 @@
           </div>
         </div>
     </div>
-  {{#if showAddFieldDialog}}
-      <div class="bg-outer">
-        <label>{{_ "fieldName"}}</label>
-        <input type="text" class="title span5">
-
-        <label>{{_ "fieldStaffs"}}</label>
-        <textarea class="description span5"></textarea>
-      </div>
-  {{else}}
+  <!--<div class="bg-outer"><center>
+   <h3>{{_ "addField"}}</h3>
+  <div class="panel panel-primary">
+     <div class="panel-heading">
+        <h3 class="panel-title">{{_ "fieldName"}}: <input type="text" id="addFieldName"/></h3>
+     </div>
+     <div class="panel-body">
+        <label>{{_ "fieldStaffsNote"}}</label>
+        <input type="text" placeholder="{{_ "fieldStaffs"}}" id="addFieldStaffsList"/>
+        <input type="submit" value="{{_ "addField"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.confirmAddField();"/>
+        <input type="submit" value="{{_ "cancel"}}" class="btn btn-success btn-sm" onclick="Session.set('fieldsMenuOption', 'main');Session.set('showAddFieldDialog', false);"/>        
+     </div>
+  </div>
+ </center>
+    </div>-->    
     <div class="bg-outer">
       {{#if addFieldStepIs "firstStep"}}
         <div id="message"> {{_ "findLocationMessage"}} <input type="submit" value="{{_ "start"}}" class="btn btn-success btn-sm" onclick="Session.set('addFieldStep', 'secondStep');" id='addFieldStartButton'/></div>
@@ -37,5 +43,5 @@
 
         {{> map}}    
     </div>
-  {{/if}}
+
 </template>
