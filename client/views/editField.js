@@ -1,4 +1,4 @@
-Template.editField.helpers({
+/*Template.editField.helpers({
   showAddFieldDialog: function () {
     return Session.get("showAddFieldDialog");
   },
@@ -6,3 +6,4 @@ Template.editField.helpers({
     return Session.get("addFieldStep") === step;
   }
 });
+*/

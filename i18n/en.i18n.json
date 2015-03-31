@@ -23,6 +23,8 @@
 "view": "View",
 "edit": "Edit",
 "delete": "Delete",
+"deleteField": "Delete Field",
+"confirmFieldDelete": "The following field will be deleted.",
 "forgetPassword": "Forget Password",
 "newPassword": "New Password",
 "confirmChange": "Confirm",
