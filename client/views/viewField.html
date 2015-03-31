@@ -2,6 +2,9 @@
   {{#if isBeingEdited }}
     {{> editField}}
   {{else}}
+    {{#if isCropsBeingEdited }}
+       {{> editCrops}}
+    {{else}}
     <div class="navbar bg-outer">
         <div class="navbar-inner">
           <div class="container">
@@ -50,7 +53,7 @@
       <h3 class="panel-title">{{_ "crops"}}</h3>
    </div>
    <div class="panel-body">
-      <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick=""/>
+      <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
    </div>
 </div>
 <div class="panel panel-danger">
@@ -70,6 +73,7 @@
    </div>
 </div>
   </center>
-    </div>  
+    </div>
+      {{/if}}
   {{/if}}
 </template>

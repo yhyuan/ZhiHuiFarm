@@ -1,4 +1,4 @@
-Template.viewField.helpers({
+Template.editCrops.helpers({
   isPartyOwner: function () {
     return Session.get("currentViewedField").owner === Meteor.userId();
   },
@@ -22,11 +22,7 @@ Template.viewField.helpers({
 if (!window.ZhiHuiFarmUI) {
     window.ZhiHuiFarmUI = {};
 }
-window.ZhiHuiFarmUI.editField = function () {
-  //console.log('OK');
-  Session.set("isCurrentFieldsBeingEdit", true);
-};
-window.ZhiHuiFarmUI.editCrops = function () {
+window.ZhiHuiFarmUI.saveCrops = function () {
   console.log('OK');
-  Session.set("isCropsBeingEdited", true);
+  Session.set("isCropsBeingEdited", false);
 };

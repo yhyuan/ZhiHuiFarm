@@ -105,6 +105,7 @@ window.ZhiHuiFarmUI.viewField = function (_id) {
   Session.set("currentViewedFieldArea", calculateArea(field.boundary));
   Session.set("currentViewedFieldCenter", calculateCenter(field.boundary));
   Session.set("isCurrentFieldsBeingEdit", false);
+  Session.set("isCropsBeingEdited", false);
   //Session.set("addFieldStep", "fifthStep");
 
   //console.log(Session.get("currentViewedField"));

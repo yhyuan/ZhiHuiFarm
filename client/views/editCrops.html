@@ -1,0 +1,17 @@
+<template name="editCrops">
+    <div class="navbar bg-outer">
+        <div class="navbar-inner">
+          <div class="container">
+            <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('isCropsBeingEdited', false);" id='goBackButton'/>
+                <div class="nav pull-right">
+                  <input type="submit" value="{{_ "save"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.saveCrops();" id='editFieldButton'/>
+                </div>
+          </div>
+        </div>
+    </div>
+
+   <div class="bg-outer"><center>
+     Test
+  </center>
+    </div>
+</template>
