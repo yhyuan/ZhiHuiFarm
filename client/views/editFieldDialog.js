@@ -1,28 +1,26 @@
+Template.editFieldDialog.rendered = function() {
+  $("#fieldNameEditField" ).val( Session.get("currentViewedField").title );
+  $("#fieldDescriptionEditField" ).val( Session.get("currentViewedField").description );
+}
+
 if (!window.ZhiHuiFarmUI) {
     window.ZhiHuiFarmUI = {};
 }
 window.ZhiHuiFarmUI.confirmEditField = function () {
-  
-  
-    //var title = template.find(".title").value;
-    //var description = template.find(".description").value;
-    var title = $('#fieldNameAddField').val();
-    var description = $('#fieldStaffsAddField').val();
+    var title = $('#fieldNameEditField').val();
+    var description = $('#fieldDescriptionEditField').val();
     var public = false; //! template.find(".private").checked;
     var boundary = Session.get("createdFieldBoundary");
+    var _id = Session.get("currentViewedField")._id;
     //if (title.length && description.length) {
-      var id = createParty({
+    updateParty({
+        _id: _id,
         title: title,
-        description: description.split(";"),
+        description: description,
         boundary: boundary,
         public: public
-      });
-  //
-  //Session.set('fieldsMenuOption', 'main');
-  //Session.set('showAddFieldDialog', false); 
-  //Session.set("menuOption", 'fields');
-  $('#createDialogModal').modal('hide');
+    });
+  $('#editDialogModal').modal('hide');
   Session.set('fieldsMenuOption', 'main');
-  //console.log(Session.get('fieldsMenuOption'));
 };
 

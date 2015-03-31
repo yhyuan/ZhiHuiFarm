@@ -105,13 +105,57 @@ createParty = function (options) {
   Meteor.call('createParty', _.extend({ _id: id }, options));
   return id;
 };
-
+updateParty = function (options) {
+  Meteor.call('updateParty', options);
+  //return id;  
+}
 Meteor.methods({
   // options should include: title, description, x, y, public
+  updateParty: function (options) {
+    check(options, {
+      title: NonEmptyString,
+      description: NonEmptyString,
+      boundary: CoordinateArray,
+      public: Match.Optional(Boolean),
+      _id: Match.Optional(NonEmptyString)
+    });
+
+    if (options.title.length > 100)
+      throw new Meteor.Error(413, "Title too long");
+    if (options.description.length > 1000)
+      throw new Meteor.Error(413, "Description too long");
+    if (! this.userId)
+      throw new Meteor.Error(403, "You must be logged in");
+    var geojsonFeatureCollection = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              _.map(options.boundary.concat([options.boundary[0]]), function(latlng) {return [latlng.lng, latlng.lat]})
+            ]
+          },
+          "properties": {
+            "title": options.title
+          }
+        }
+      ]
+    };
+    Parties.update(options._id, {
+      $set: {
+        boundary: geojsonFeatureCollection, //options.boundary,
+        title: options.title,
+        description: options.description,
+        public: !! options.public
+      }
+    });    
+  },  
   createParty: function (options) {
     check(options, {
       title: NonEmptyString,
-      description: StringArray,
+      description: NonEmptyString,
       boundary: CoordinateArray,
       public: Match.Optional(Boolean),
       _id: Match.Optional(NonEmptyString)
@@ -126,20 +170,39 @@ Meteor.methods({
 
     var id = options._id || Random.id();
     //console.log(options.description);
-    var userIds = _.map(options.description, function(email) {
+    /*var userIds = _.map(options.description, function(email) {
       var user = Meteor.users.findOne({"emails.address": email});
       return (user) ? user._id : '';
-    });
-    //console.log(userIds);
+    });*/
+    var geojsonFeatureCollection = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              _.map(options.boundary.concat([options.boundary[0]]), function(latlng) {return [latlng.lng, latlng.lat]})
+            ]
+          },
+          "properties": {
+            "title": options.title
+          }
+        }
+      ]
+    };
+    //console.log(options.boundary);
+
     Parties.insert({
       _id: id,
       owner: this.userId,
-      boundary: options.boundary,
+      boundary: geojsonFeatureCollection, //options.boundary,
       title: options.title,
-      staffs: userIds,
+      description: options.description,
       public: !! options.public,
-      invited: [],
-      rsvps: []
+      staffs: [],
+      crops: [],
+      activities: []
     });
     return id;
   },

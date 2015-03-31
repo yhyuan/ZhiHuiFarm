@@ -35,16 +35,84 @@ window.ZhiHuiFarmUI.clearMap = function () {
 };
 window.ZhiHuiFarmUI.doneMap = function () {
     Session.set("createdFieldBoundary", _.map(markers, function(m) {return m.getLatLng();}));
-    Session.set("createError", null);
-    Session.set("showAddFieldDialog", true);
-    $('#createDialogModal').modal('show');
-    //console.log(Session.get("showCreateDialog"));
+    if (Session.get("currentViewedField") && Session.get("isCurrentFieldsBeingEdit")) {
+        Session.set("createError", null);
+        $('#editDialogModal').modal('show');
+    } else {
+        Session.set("createError", null);
+        Session.set("showAddFieldDialog", true);
+        $('#createDialogModal').modal('show');
+    }
 };
 
 
 var map, polyline, dragableMarker, markers = [];
 var polygon, boundary = [];
 //var midMarkers = [];
+var onClick = function(e) {
+    //console.log(e.latlng);
+    //console.log(Session.get("addFieldStep"));
+    if (Session.get("addFieldStep") === 'fourthStep') {
+        if (calculateDistance(boundary[0], e.latlng) < 20) {
+            //console.log('fifthStep');
+            Session.set("addFieldStep", 'fifthStep');
+            geojsonMarkerOptions.radius = 3;
+            var lastLatlng = boundary[boundary.length - 1];
+            var midMarker = L.circleMarker([(e.latlng.lat + lastLatlng.lat) * 0.5, (e.latlng.lng + lastLatlng.lng) * 0.5], geojsonMarkerOptions);
+            markers.push(midMarker);
+            midMarker.addTo(map);
+
+            if (polyline) {
+                map.removeLayer(polyline);
+            }
+            polygon = L.polygon(_.map(markers, function(m) {
+                return m.getLatLng();
+            }), {
+                color: 'blue'
+            }).addTo(map);
+            polygon.on('click', onClick);
+            return;
+        } else {
+            addCircleMarkerNPolyline(e.latlng);
+        }
+    }
+
+    if (Session.get("addFieldStep") === 'fifthStep') {
+        var filtered = _.filter(markers, function(m) {
+            return calculateDistance(m.getLatLng(), e.latlng) < 20
+        });
+        if (filtered.length === 0) {
+            return;
+        }
+        if (dragableMarker) {
+            map.removeLayer(dragableMarker);
+        }
+        dragableMarker = L.marker(e.latlng, {
+            draggable: true,
+            zIndexOffset: 1000
+        });
+        dragableMarker.addTo(map);
+        dragableMarker.on('drag', function(e) {
+            var marker = e.target;
+            var position = marker.getLatLng();
+            filtered[0].setLatLng(position);
+            map.removeLayer(polygon);
+            polygon = L.polygon(_.map(markers, function(m) {
+                return m.getLatLng();
+            }), {
+                color: 'blue'
+            }).addTo(map);
+        });
+    }
+};
+var geojsonMarkerOptions = {
+    fillColor: "#FFF803",
+    color: "#DDFF03",
+    weight: 1,
+    opacity: 0.8,
+    fillOpacity: 0.8
+};
+
 var initialize = function(element, centroid, zoom, features) {
     //boundary = [];
     window.ZhiHuiFarmUI.clearMap();
@@ -103,68 +171,6 @@ var initialize = function(element, centroid, zoom, features) {
     });
     */
     map.on("click", function(e) {
-        var onClick = function(e) {
-            if (Session.get("addFieldStep") === 'fourthStep') {
-                if (calculateDistance(boundary[0], e.latlng) < 20) {
-                    //console.log('fifthStep');
-                    Session.set("addFieldStep", 'fifthStep');
-                    geojsonMarkerOptions.radius = 3;
-                    var lastLatlng = boundary[boundary.length - 1];
-                    var midMarker = L.circleMarker([(e.latlng.lat + lastLatlng.lat) * 0.5, (e.latlng.lng + lastLatlng.lng) * 0.5], geojsonMarkerOptions);
-                    markers.push(midMarker);
-                    midMarker.addTo(map);
-
-                    if (polyline) {
-                        map.removeLayer(polyline);
-                    }
-                    polygon = L.polygon(_.map(markers, function(m) {
-                        return m.getLatLng();
-                    }), {
-                        color: 'blue'
-                    }).addTo(map);
-                    polygon.on('click', onClick);
-                    return;
-                } else {
-                    addCircleMarkerNPolyline(e.latlng);
-                }
-            }
-
-            if (Session.get("addFieldStep") === 'fifthStep') {
-                var filtered = _.filter(markers, function(m) {
-                    return calculateDistance(m.getLatLng(), e.latlng) < 20
-                });
-                if (filtered.length === 0) {
-                    return;
-                }
-                if (dragableMarker) {
-                    map.removeLayer(dragableMarker);
-                }
-                dragableMarker = L.marker(e.latlng, {
-                    draggable: true,
-                    zIndexOffset: 1000
-                });
-                dragableMarker.addTo(map);
-                dragableMarker.on('drag', function(e) {
-                    var marker = e.target;
-                    var position = marker.getLatLng();
-                    filtered[0].setLatLng(position);
-                    map.removeLayer(polygon);
-                    polygon = L.polygon(_.map(markers, function(m) {
-                        return m.getLatLng();
-                    }), {
-                        color: 'blue'
-                    }).addTo(map);
-                });
-            }
-        };
-
-        var geojsonMarkerOptions = {
-            fillColor: "#FFF803",
-            color: "#DDFF03",
-            weight: 1,
-            opacity: 0.8,
-            fillOpacity: 0.8
-        };
         var addCircleMarkerNPolyline = function(latlng) {
             geojsonMarkerOptions.radius = 5;
             var marker = L.circleMarker([latlng.lat, latlng.lng], geojsonMarkerOptions);
@@ -264,21 +270,44 @@ Template.map.rendered = function() {
         $('#map_canvas').css('height', (h - offsetTop));
     }).resize();
 
-    //console.log('Template.map.rendered');
-    var defaultLatLng = [39.56349, 117.55405];
-    var defaultZoomLevel = 13;
-    var positioningErrorHandler = function(error) {
-        initialize($("#map_canvas")[0], defaultLatLng, defaultZoomLevel);
-    };
-    var positioningSuccessHandler = function(position) {
-        console.log('GPS is good.');
-        initialize($("#map_canvas")[0], [position.coords.latitude, position.coords.longitude], 13);
-    };
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(positioningSuccessHandler, positioningErrorHandler);
+    if (Session.get("currentViewedField") && Session.get("isCurrentFieldsBeingEdit")) {
+        var center = Session.get("currentViewedFieldCenter");
+        var zoomLevel = 15;
+        initialize($("#map_canvas")[0], [center.lat, center.lng], zoomLevel);
+        Session.set("addFieldStep", "fifthStep");
+        var coordinates = Session.get("currentViewedField").boundary.features[0].geometry.coordinates[0];
+        polygon = L.polygon(_.map(coordinates, function(coor) {return {lat: coor[1], lng: coor[0]};}), {
+            color: 'blue'
+        }).addTo(map);
+        polygon.on('click', onClick);
+
+        markers = _.map(_.range(coordinates.length - 1), function(i) {
+            var coor = coordinates[i];
+            geojsonMarkerOptions.radius = (i%2 === 0) ? 5 : 3;
+            var latlng = {lat: coor[1], lng: coor[0]};
+            var marker = L.circleMarker([latlng.lat, latlng.lng], geojsonMarkerOptions);
+            return marker;
+        });
+        _.each(markers, function(marker) {
+            marker.on('click', onClick);
+            marker.addTo(map);
+        });
     } else {
-        console.log('NO GPS');
-        initialize($("#map_canvas")[0], defaultLatLng, defaultZoomLevel);
+        var defaultLatLng = [39.56349, 117.55405];
+        var defaultZoomLevel = 13;
+        var positioningErrorHandler = function(error) {
+            initialize($("#map_canvas")[0], defaultLatLng, defaultZoomLevel);
+        };
+        var positioningSuccessHandler = function(position) {
+            //console.log('GPS is good.');
+            initialize($("#map_canvas")[0], [position.coords.latitude, position.coords.longitude], 13);
+        };
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(positioningSuccessHandler, positioningErrorHandler);
+        } else {
+            //console.log('NO GPS');
+            initialize($("#map_canvas")[0], defaultLatLng, defaultZoomLevel);
+        }        
     }
 
     // initialize map events
