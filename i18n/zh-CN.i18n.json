@@ -27,6 +27,7 @@
 "editField": "编辑地块",
 "delete": "删除",
 "deleteField": "删除地块",
+"save": "保存",
 "confirmFieldDelete": "以下地块将被删除",
 "forgetPassword": "忘记密码",
 "newPassword": "新密码",

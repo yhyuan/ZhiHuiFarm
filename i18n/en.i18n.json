@@ -27,6 +27,7 @@
 "editField": "Edit Field",
 "delete": "Delete",
 "deleteField": "Delete Field",
+"save": "Save",
 "confirmFieldDelete": "The following field will be deleted.",
 "forgetPassword": "Forget Password",
 "newPassword": "New Password",
