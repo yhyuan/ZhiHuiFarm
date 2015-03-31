@@ -6,10 +6,10 @@
 standard-app-packages
 accounts-ui
 accounts-password
-d3
 email
 audit-argument-checks
 mrt:leaflet
 tap:i18n
 mizzao:bootstrap-3
 mdg:camera
+peernohell:c3
