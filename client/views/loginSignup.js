@@ -6,7 +6,7 @@ Template.loginSignup.helpers({
     return Session.get("forgetPassword");
   }
 });
-
+/*
 // (client-side)
 Template.loginSignup.created = function() {
   if (Accounts._verifyEmailToken) {
@@ -22,3 +22,4 @@ Template.loginSignup.created = function() {
   }
 };
 
+*/

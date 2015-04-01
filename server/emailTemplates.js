@@ -1,3 +1,4 @@
+/*
 // (server-side)
 Meteor.startup(function() {
   // By default, the email is sent from no-reply@meteor.com. If you wish to receive email from users asking for help with their account, be sure to set this to an email address that you can receive email at.
@@ -39,3 +40,4 @@ Accounts.validateLoginAttempt(function(attempt){
   }
   return true;
 }); 
+*/
