@@ -53,7 +53,11 @@
       <h3 class="panel-title">{{_ "crops"}}</h3>
    </div>
    <div class="panel-body">
-      <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
+      {{#if isCropsZero}}
+        <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
+      {{else}}
+        {{cropsList}}<input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
+      {{/if}}
    </div>
 </div>
 <div class="panel panel-danger">

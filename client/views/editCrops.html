@@ -10,8 +10,62 @@
         </div>
     </div>
 
-   <div class="bg-outer"><center>
-     Test
-  </center>
-    </div>
+   <div class="bg-outer">
+        <div class="form-group">
+          <label for="sel1">{{_ "cropsList"}}:</label>
+          <select class="form-control" id="cropSelectList">
+            {{#each crops}}
+              {{> crop}}
+            {{/each}}
+          </select>
+          <label for="sel1">{{_ "yearsList"}}:</label>
+          <select class="form-control" id="yearSelectList">
+            {{#each years}}
+              {{> year}}
+            {{/each}}
+          </select>          
+          <div class="nav pull-right">
+            <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.addCrop();"/>
+          </div>
+        </div>
+        {{#if isCropsZero}}
+            <label id="cropsList"><br><br><br><br></label>
+        {{else}}
+          {{#each yearCropsInField}}
+             <strong>{{year}}</strong>
+            {{> cropsInField }}
+          {{/each}}          
+        {{/if}}
+  </div>
+</template>
+
+<template name="crop">
+  <option>{{name}}</option>
+</template>
+
+<template name="year">
+  <option>{{name}}</option>
+</template>
+
+<template name="cropsInField">
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>{{_ "crops"}}</th>
+        <th>{{_ "delete"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each cropsInField}}
+        {{> cropInField}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+
+<template name="cropInField">
+  <tr>
+    <td>{{name}}</td>
+    <td><input type="submit" value="{{_ "delete"}}" class="btn btn-danger btn-sm" onclick="window.ZhiHuiFarmUI.deleteCrop({{year}} , {{Id}});"/></td>
+  </tr>
 </template>

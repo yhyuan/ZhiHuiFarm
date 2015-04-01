@@ -13,12 +13,30 @@ window.ZhiHuiFarmUI.confirmEditField = function () {
     var boundary = Session.get("createdFieldBoundary");
     var _id = Session.get("currentViewedField")._id;
     //if (title.length && description.length) {
+    var geojsonFeatureCollection = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              _.map(boundary.concat([boundary[0]]), function(latlng) {return [latlng.lng, latlng.lat]})
+            ]
+          },
+          "properties": {
+            "title": title
+          }
+        }
+      ]
+    };
+    var crops = Session.get("currentViewedField").crops;
     updateParty({
         _id: _id,
         title: title,
         description: description,
-        boundary: boundary,
-        public: public
+        boundary: geojsonFeatureCollection,
+        crops: crops
     });
   $('#editDialogModal').modal('hide');
   Session.set('fieldsMenuOption', 'main');

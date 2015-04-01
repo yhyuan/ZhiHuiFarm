@@ -42,6 +42,8 @@
 "nextSeason": "Next Season",
 "soil": "Soil",
 "crops": "Crops",
+"cropsList": "Crops List",
+"yearsList": "Years List",
 "activities": "Activities",
 "findLocationMessage": "Please find your fields and click on the Start button to create your field.",
 "tapMapMessage": "Tap to add points around your field",

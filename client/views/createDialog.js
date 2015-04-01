@@ -46,12 +46,31 @@ window.ZhiHuiFarmUI.confirmAddField = function () {
     var description = $('#fieldDescription').val();
     var public = false; //! template.find(".private").checked;
     var boundary = Session.get("createdFieldBoundary");
+
+    var geojsonFeatureCollection = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              _.map(boundary.concat([boundary[0]]), function(latlng) {return [latlng.lng, latlng.lat]})
+            ]
+          },
+          "properties": {
+            "title": title
+          }
+        }
+      ]
+    };
+
     //if (title.length && description.length) {
       var id = createParty({
         title: title,
         description: description,
-        boundary: boundary,
-        public: public
+        boundary: geojsonFeatureCollection//,
+        //public: public
       });
   $('#createDialogModal').modal('hide');
   Session.set('fieldsMenuOption', 'main');

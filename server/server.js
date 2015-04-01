@@ -9,6 +9,14 @@ Meteor.publish("parties", function () {
     {$or: [{staffs: { $in: [this.userId]}}, {owner: this.userId}]});
 });
 
+Meteor.publish("crops", function () {
+  return Crops.find({});
+});
+
+Meteor.publish("years", function () {
+  return Years.find({});
+});
+
 // server/smtp.js
 Meteor.startup(function () {
 	
@@ -20,7 +28,34 @@ Meteor.startup(function () {
   }
 
   process.env.MAIL_URL = 'smtp://' + encodeURIComponent(smtp.username) + ':' + encodeURIComponent(smtp.password) + '@' + encodeURIComponent(smtp.server) + ':' + smtp.port;
-  
+    
+  if (Crops.find().count() === 0) {
+    var cropList = [
+      { 
+        Id: 1,
+        name: '小麦'
+      },
+      {
+        Id: 2,
+        name: '玉米'
+      },
+      {
+        Id: 3,
+        name: '水稻'
+      },
+      {
+        Id: 4,
+        name: '大豆'
+      },
+      {
+        Id: 5,
+        name: '高粱'
+      }
+    ];
+    _.each(cropList, function(crop) {
+      Crops.insert(crop);
+    })
+  }
   //process.env.MAIL_URL = 'smtp://postmaster%40zhihuifarm.mailgun.org:yorkyork@smtp.mailgun.org:587';
 });
 

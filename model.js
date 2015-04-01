@@ -23,6 +23,9 @@ if (Meteor.isClient) {
   });
 }
 
+Crops = new Mongo.Collection("crops");
+
+
 /*
   Each party is represented by a document in the Parties collection:
     owner: user id
@@ -42,7 +45,7 @@ Parties.allow({
     if (userId !== party.owner)
       return false; // not the owner
 
-    var allowed = ["title", "description", "boundary"];
+    var allowed = ["title", "description", "boundary", "crops", "staffs", "activities"];
     if (_.difference(fields, allowed).length)
       return false; // tried to write to forbidden field
 
@@ -94,10 +97,34 @@ var CoordinateArray = Match.Where(function (xs) {
   }
   return true;
 });
+var GeojsonFeatureCollection = Match.Where(function (x) {
+  check(x, Object);
+  return true;
+});
 
 var LargeThanZeroNumber = Match.Where(function (x) {
   check(x, Number);
   return x > 0;
+});
+
+var CropsCheck = Match.Where(function (crops) {
+  check(crops, Object);
+  
+  var years = _.keys(crops)
+  if(years.length === 0) {
+    return true;
+  }
+/*
+  for (var i=0;i<years.length;i++) {
+    console.log(years[i]);
+    if((parseInt(years[i]) <= 2000) || (parseInt(years[i]) > new Date().getFullYear())) {
+      return false;
+    }
+    var cropList = crops[years[i]];
+    check(cropList, Array);
+  }
+  */
+  return true;
 });
 
 createParty = function (options) {
@@ -111,12 +138,14 @@ updateParty = function (options) {
 }
 Meteor.methods({
   // options should include: title, description, x, y, public
-  updateParty: function (options) {
+
+updateParty: function (options) {
     check(options, {
       title: NonEmptyString,
       description: NonEmptyString,
-      boundary: CoordinateArray,
-      public: Match.Optional(Boolean),
+      boundary: GeojsonFeatureCollection,
+      crops: CropsCheck,
+      //public: Match.Optional(Boolean),
       _id: Match.Optional(NonEmptyString)
     });
 
@@ -126,38 +155,22 @@ Meteor.methods({
       throw new Meteor.Error(413, "Description too long");
     if (! this.userId)
       throw new Meteor.Error(403, "You must be logged in");
-    var geojsonFeatureCollection = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-              _.map(options.boundary.concat([options.boundary[0]]), function(latlng) {return [latlng.lng, latlng.lat]})
-            ]
-          },
-          "properties": {
-            "title": options.title
-          }
-        }
-      ]
-    };
+
     Parties.update(options._id, {
       $set: {
-        boundary: geojsonFeatureCollection, //options.boundary,
+        boundary: options.boundary, //options.boundary,
         title: options.title,
         description: options.description,
-        public: !! options.public
+        crops: options.crops
       }
     });    
-  },  
+  },     
   createParty: function (options) {
     check(options, {
       title: NonEmptyString,
       description: NonEmptyString,
-      boundary: CoordinateArray,
-      public: Match.Optional(Boolean),
+      boundary: GeojsonFeatureCollection,
+      //public: Match.Optional(Boolean),
       _id: Match.Optional(NonEmptyString)
     });
 
@@ -174,34 +187,18 @@ Meteor.methods({
       var user = Meteor.users.findOne({"emails.address": email});
       return (user) ? user._id : '';
     });*/
-    var geojsonFeatureCollection = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-              _.map(options.boundary.concat([options.boundary[0]]), function(latlng) {return [latlng.lng, latlng.lat]})
-            ]
-          },
-          "properties": {
-            "title": options.title
-          }
-        }
-      ]
-    };
+
     //console.log(options.boundary);
 
     Parties.insert({
       _id: id,
       owner: this.userId,
-      boundary: geojsonFeatureCollection, //options.boundary,
+      boundary: options.boundary, //options.boundary,
       title: options.title,
       description: options.description,
-      public: !! options.public,
+      //public: !! options.public,
       staffs: [],
-      crops: [],
+      crops: {},
       activities: []
     });
     return id;
