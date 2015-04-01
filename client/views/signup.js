@@ -16,7 +16,7 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
 				        email: signupEmail,
 				        password: signupPassword1
 				    });
-				Meteor.loginWithPassword(signupEmail, signupPassword1);
+				//Meteor.loginWithPassword(signupEmail, signupPassword1);
 				Session.set("signup", false);
 	    	} else {
 	    		console.log("Password does not match.");
