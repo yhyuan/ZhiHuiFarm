@@ -5,82 +5,90 @@
     {{#if isCropsBeingEdited }}
        {{> editCrops}}
     {{else}}
-    <div class="navbar bg-outer">
-        <div class="navbar-inner">
-          <div class="container">
-            <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('fieldsMenuOption', 'main');" id='goBackButton'/>
-            {{#if isPartyOwner}}
-                <div class="nav pull-right">
-                  <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="Session.set('isCurrentFieldsBeingEdit', true);" id='editFieldButton'/>
-                </div>
-            {{/if}}
-          </div>
-        </div>
-    </div>
-
-   <div class="bg-outer"><center>
-   <h3>{{title}}</h3><br>
-   {{calculateArea}} {{_ "hectare"}}
-<div class="panel panel-primary">
-   <div class="panel-heading">
-      <h3 class="panel-title">{{_ "temperature"}}</h3>
-   </div>
-   <div class="panel-body">
-      {{_ "realtime"}}: 15°C <input type="submit" value="{{_ "hours36"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "days3"}}" class="btn btn-success btn-sm" onclick=""/>
-      <input type="submit" value="{{_ "growingSeason"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "nextSeason"}}" class="btn btn-success btn-sm" onclick=""/>
-   </div>
-</div>
-<div class="panel panel-success">
-   <div class="panel-heading">
-      <h3 class="panel-title">{{_ "rainfall"}}</h3>
-   </div>
-   <div class="panel-body">
-      {{_ "realtime"}}: 15mm <input type="submit" value="{{_ "hours36"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "days3"}}" class="btn btn-success btn-sm" onclick=""/>
-      <input type="submit" value="{{_ "growingSeason"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "nextSeason"}}" class="btn btn-success btn-sm" onclick=""/>
-   </div>
-</div>
-<div class="panel panel-info">
-   <div class="panel-heading">
-      <h3 class="panel-title">{{_ "soil"}}</h3>
-   </div>
-   <div class="panel-body">
-      {{_ "realtime"}}: 15mm <input type="submit" value="{{_ "hours36"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "days3"}}" class="btn btn-success btn-sm" onclick=""/>
-      <input type="submit" value="{{_ "growingSeason"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "nextSeason"}}" class="btn btn-success btn-sm" onclick=""/>
-   </div>
-</div>
-<div class="panel panel-warning">
-   <div class="panel-heading">
-      <h3 class="panel-title">{{_ "crops"}}</h3>
-   </div>
-   <div class="panel-body">
-      {{#if isCropsZero}}
-        <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
+      {{#if isActivitiesBeingEdited }}
+         {{> editActivities}}
       {{else}}
-        {{cropsList}}<input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
-      {{/if}}
-   </div>
-</div>
-<div class="panel panel-danger">
-   <div class="panel-heading">
-      <h3 class="panel-title">{{_ "activities"}}</h3>
-   </div>
-   <div class="panel-body">
-      <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick=""/>
-   </div>
-</div>
-    {{#if isPartyOwner}}
-      <div class="panel panel-primary">
-         <div class="panel-heading">
-            <h3 class="panel-title">{{_ "fieldStaffs"}}</h3>
-         </div>
-         <div class="panel-body">
-             <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick=""/>
-         </div>
-      </div>
-   {{/if}}
+                <div class="navbar bg-outer">
+                    <div class="navbar-inner">
+                      <div class="container">
+                        <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('fieldsMenuOption', 'main');" id='goBackButton'/>
+                        {{#if isPartyOwner}}
+                            <div class="nav pull-right">
+                              <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="Session.set('isCurrentFieldsBeingEdit', true);" id='editFieldButton'/>
+                            </div>
+                        {{/if}}
+                      </div>
+                    </div>
+                </div>
 
-  </center>
-    </div>
+               <div class="bg-outer"><center>
+               <h3>{{title}}</h3><br>
+               {{calculateArea}} {{_ "hectare"}}
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title">{{_ "temperature"}}</h3>
+               </div>
+               <div class="panel-body">
+                  {{_ "realtime"}}: 15°C <input type="submit" value="{{_ "hours36"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "days3"}}" class="btn btn-success btn-sm" onclick=""/>
+                  <input type="submit" value="{{_ "growingSeason"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "nextSeason"}}" class="btn btn-success btn-sm" onclick=""/>
+               </div>
+            </div>
+            <div class="panel panel-success">
+               <div class="panel-heading">
+                  <h3 class="panel-title">{{_ "rainfall"}}</h3>
+               </div>
+               <div class="panel-body">
+                  {{_ "realtime"}}: 15mm <input type="submit" value="{{_ "hours36"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "days3"}}" class="btn btn-success btn-sm" onclick=""/>
+                  <input type="submit" value="{{_ "growingSeason"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "nextSeason"}}" class="btn btn-success btn-sm" onclick=""/>
+               </div>
+            </div>
+            <div class="panel panel-info">
+               <div class="panel-heading">
+                  <h3 class="panel-title">{{_ "soil"}}</h3>
+               </div>
+               <div class="panel-body">
+                  {{_ "realtime"}}: 15mm <input type="submit" value="{{_ "hours36"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "days3"}}" class="btn btn-success btn-sm" onclick=""/>
+                  <input type="submit" value="{{_ "growingSeason"}}" class="btn btn-success btn-sm" onclick=""/> <input type="submit" value="{{_ "nextSeason"}}" class="btn btn-success btn-sm" onclick=""/>
+               </div>
+            </div>
+            <div class="panel panel-warning">
+               <div class="panel-heading">
+                  <h3 class="panel-title">{{_ "crops"}}</h3>
+               </div>
+               <div class="panel-body">
+                  {{#if isCropsZero}}
+                    <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
+                  {{else}}
+                    {{cropsList}}<input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
+                  {{/if}}
+               </div>
+            </div>
+            <div class="panel panel-danger">
+               <div class="panel-heading">
+                  <h3 class="panel-title">{{_ "activities"}}</h3>
+               </div>
+               <div class="panel-body">
+                  {{#if isActivitiesZero}}
+                    <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editActivities();"/>
+                  {{else}}
+                    {{cropsList}}<input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editActivities();"/>
+                  {{/if}}
+               </div>
+            </div>
+                {{#if isPartyOwner}}
+                  <div class="panel panel-primary">
+                     <div class="panel-heading">
+                        <h3 class="panel-title">{{_ "fieldStaffs"}}</h3>
+                     </div>
+                     <div class="panel-body">
+                         <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick=""/>
+                     </div>
+                  </div>
+               {{/if}}
+
+              </center>
+                </div>
+          {{/if}}
       {{/if}}
   {{/if}}
 </template>

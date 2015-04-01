@@ -8,9 +8,12 @@ Template.viewField.helpers({
   isBeingEdited: function () {
     return Session.get("isCurrentFieldsBeingEdit");
   },
+  isActivitiesBeingEdited: function () {
+    return Session.get("isActivitiesBeingEdited");
+  },
   isCropsBeingEdited: function () {
     return Session.get("isCropsBeingEdited");
-  },  
+  },    
   title: function () {
   	return Session.get("currentViewedField").title;
   },
@@ -19,6 +22,9 @@ Template.viewField.helpers({
   },
   isCropsZero: function () {    
     return _.keys(Session.get("currentViewedField").crops).length === 0;
+  },
+  isActivitiesZero: function () {    
+    return _.keys(Session.get("currentViewedField").activities).length === 0;
   },  
   cropsList: function() {
       var crops = Crops.find({}).fetch();
@@ -45,4 +51,9 @@ window.ZhiHuiFarmUI.editCrops = function () {
   //console.log('OK');
   Session.set("isCropsBeingEdited", true);
   Session.set("currentViewedFieldCrops", Session.get("currentViewedField").crops);
+};
+window.ZhiHuiFarmUI.editActivities = function () {
+  //console.log('OK');
+  Session.set("isActivitiesBeingEdited", true);
+  Session.set("currentViewedFieldActivities", Session.get("currentViewedField").activities);
 };
