@@ -110,7 +110,13 @@ window.ZhiHuiFarmUI.viewField = function (_id) {
 
   //console.log(Session.get("currentViewedField"));
 };
-
+window.ZhiHuiFarmUI.addField = function () {
+ Session.set('fieldsMenuOption', 'add');
+ Session.set('addFieldStep', 'firstStep');
+ Session.set('showAddFieldDialog', false);
+ Session.set('currentViewedField', null);
+ Session.set('isCurrentFieldsBeingEdit', false);
+};
 /*
     
     var openCreateDialog = function(field) {

@@ -49,6 +49,34 @@ window.ZhiHuiFarmUI.doneMap = function () {
 var map, polyline, dragableMarker, markers = [];
 var polygon, boundary = [];
 //var midMarkers = [];
+var addCircleMarkerNPolyline = function(latlng) {
+    geojsonMarkerOptions.radius = 5;
+    var marker = L.circleMarker([latlng.lat, latlng.lng], geojsonMarkerOptions);
+    if (boundary.length > 0) {
+        geojsonMarkerOptions.radius = 3;
+        var lastLatlng = boundary[boundary.length - 1];
+        var midMarker = L.circleMarker([(latlng.lat + lastLatlng.lat) * 0.5, (latlng.lng + lastLatlng.lng) * 0.5], geojsonMarkerOptions);
+    }
+    marker.on('click', onClick);
+    if (boundary.length > 0) {
+        midMarker.on('click', onClick);
+    }
+    if (boundary.length > 0) {
+        markers.push(midMarker);
+        midMarker.addTo(map);
+    }
+    markers.push(marker);
+    marker.addTo(map);
+    if (polyline) {
+        map.removeLayer(polyline);
+    }
+    polyline = L.polyline(boundary.concat([latlng]), {
+        dashArray: "5, 10",
+        color: "#FFF803"
+    }).addTo(map);
+    boundary.push(latlng);
+};
+
 var onClick = function(e) {
     //console.log(e.latlng);
     //console.log(Session.get("addFieldStep"));
@@ -171,33 +199,6 @@ var initialize = function(element, centroid, zoom, features) {
     });
     */
     map.on("click", function(e) {
-        var addCircleMarkerNPolyline = function(latlng) {
-            geojsonMarkerOptions.radius = 5;
-            var marker = L.circleMarker([latlng.lat, latlng.lng], geojsonMarkerOptions);
-            if (boundary.length > 0) {
-                geojsonMarkerOptions.radius = 3;
-                var lastLatlng = boundary[boundary.length - 1];
-                var midMarker = L.circleMarker([(latlng.lat + lastLatlng.lat) * 0.5, (latlng.lng + lastLatlng.lng) * 0.5], geojsonMarkerOptions);
-            }
-            marker.on('click', onClick);
-            if (boundary.length > 0) {
-                midMarker.on('click', onClick);
-            }
-            if (boundary.length > 0) {
-                markers.push(midMarker);
-                midMarker.addTo(map);
-            }
-            markers.push(marker);
-            marker.addTo(map);
-            if (polyline) {
-                map.removeLayer(polyline);
-            }
-            polyline = L.polyline(boundary.concat([latlng]), {
-                dashArray: "5, 10",
-                color: "#FFF803"
-            }).addTo(map);
-            boundary.push(latlng);
-        };
         if (!Meteor.userId()) // must be logged in to create parties
             return;
 
