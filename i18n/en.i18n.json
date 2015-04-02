@@ -52,5 +52,6 @@
 "tapMapMessage": "Tap to add points around your field",
 "tapOriginalMessage": "Tap your original point to complete the shape",
 "dragPointsMessage": "Drag points to modify your field shape",
-"noFieldMessage": "You have no field. Please use the Add tool to add fields."
+"noFieldMessage": "You have no field. Please use the Add tool to add fields.",
+"noLoggedActivities": "You have not logged any activities on this crop in this year."
  }

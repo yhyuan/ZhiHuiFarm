@@ -90,4 +90,22 @@ window.ZhiHuiFarmUI.editCrops = function () {
 window.ZhiHuiFarmUI.editActivities = function () {
   Session.set('beingEditedOption', 'Activities');
   Session.set("currentViewedFieldActivities", Session.get("currentViewedField").activities);
+
+  var crops = Crops.find({}).fetch();
+  var cropsDict = _.object(_.map(crops, function(crop) {return crop.Id;}), _.map(crops, function(crop) {return crop.name;}));
+
+  var currentViewedFieldCrops = Session.get("currentViewedField").crops;
+  var cropYear = _.map(_.keys(currentViewedFieldCrops), function(year) {
+    var cropsInThisYear = currentViewedFieldCrops[year];
+    return _.map(cropsInThisYear, function(cropId) {
+      return {cropId: cropId, name: cropsDict[cropId], year: year};
+    })
+  });
+
+  var cropsYears = _.reduce(cropYear, function(memo, num){ return memo.concat(num); }, []).sort(function(a,b) { return b.year - a.year; });
+  cropsYears = _.map(_.range(cropsYears.length), function(i) {    
+    return {index: i, cropId: cropsYears[i].cropId, name: cropsYears[i].name, year: cropsYears[i].year};
+  });
+  Session.set("currentViewedFieldCropsYears", cropsYears)
+  Session.set("currentViewedFieldCropsYearsIndex", 0)
 };

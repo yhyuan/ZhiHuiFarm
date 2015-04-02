@@ -1,20 +1,17 @@
 
 Template.editActivities.helpers({
-  isActivitiesZero: function () {    
-    return _.keys(Session.get("currentViewedFieldCrops")).length === 0;
+  isActivitiesZero: function () {
+    var cropsYears =  Session.get("currentViewedFieldCropsYears");
+    var firstCropYear = cropsYears[Session.get("currentViewedFieldCropsYearsIndex")];
+    var activities = Activities.find({}).fetch();
+
+    var filtered = _.filter(activities, function(activity) {
+      return (firstCropYear.cropId === activity.cropId) && (firstCropYear.year === activity.year);
+    });
+    return filtered.length === 0;
   },
   cropsYears: function () {
-    var crops = Crops.find({}).fetch();
-    var cropsDict = _.object(_.map(crops, function(crop) {return crop.Id;}), _.map(crops, function(crop) {return crop.name;}));
-
-    var currentViewedFieldCrops = Session.get("currentViewedField").crops;
-    var cropYear = _.map(_.keys(currentViewedFieldCrops), function(year) {
-      var cropsInThisYear = currentViewedFieldCrops[year];
-      return _.map(cropsInThisYear, function(cropId) {
-        return {name: cropsDict[cropId], year: year};
-      })
-    });
-    return _.reduce(cropYear, function(memo, num){ return memo.concat(num); }, []);
+    return Session.get("currentViewedFieldCropsYears");
   },
   /*cropsInField: function () {
     var crops = Crops.find({}).fetch();
@@ -32,7 +29,9 @@ Template.editActivities.helpers({
       });
       return {year: year, cropsInField: cropsInField};
     });
-    return results.sort(function(a,b) { return b.year - a.year; });
+    results = results.sort(function(a,b) { return b.year - a.year; });
+    console.log(results);
+    return results;
     /*
     return _.filter(crops, function(crop) {
       return _.contains(, crop.Id);
@@ -95,4 +94,8 @@ window.ZhiHuiFarmUI.addActivity = function () {
     currentCrops[year] = [cropId];
     Session.set("currentViewedFieldCrops", currentCrops);
   }
+};
+
+window.ZhiHuiFarmUI.CropsYearsSelectListChanged = function (value) {
+  Session.set("currentViewedFieldCropsYearsIndex", parseInt(value));
 };

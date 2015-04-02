@@ -1,42 +1,34 @@
 <template name="editActivities">
+
   <div class="bg-outer">
     <div class="navbar">
         <div class="navbar-inner">
           <div class="container">
             <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('beingEditedOption', 'main');"/>
-                <div class="nav pull-right">
+                <!--<div class="nav pull-right">
                   <input type="submit" value="{{_ "save"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.saveActivities();"/>
-                </div>
+                </div>-->
           </div>
         </div>
     </div>
 
         <div class="form-group">
           <label for="sel1">{{_ "activitiesList"}}:</label>
-          <select class="form-control" id="cropsYearsSelectList">
+          <select class="form-control" id="cropsYearsSelectList" onchange="window.ZhiHuiFarmUI.CropsYearsSelectListChanged(this.value)">
             {{#each cropsYears}}
-               <option>{{name}} -- {{year}}</option>
-            {{/each}}
-          </select>
-          <label for="sel1">{{_ "yearsList"}}:</label>
-          <select class="form-control" id="yearSelectList">
-            {{#each activities}}
-              <option>{{name}}</option>
+               <option value="{{index}}">{{name}} -- {{year}}</option>
             {{/each}}
           </select>
           <div class="nav pull-right">
             <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.addActivity();"/>
           </div>
-        </div><!--
+        </div><br>
         {{#if isActivitiesZero}}
-            <label id="activitiesList"><br><br><br><br></label>
+            <label id="activitiesList">{{_ "noLoggedActivities"}}<br><br><br></label>
         {{else}}
-          {{#each yearCropsInField}}
-             <strong>{{year}}</strong>
-            {{> cropsInField }}
-          {{/each}}
-        {{/if}}-->
- 
+          <label id="activitiesList">bbbb<br><br><br><br></label>
+        {{/if}}
   </div>
+
 </template>
 

@@ -52,5 +52,6 @@
 "tapMapMessage": "沿你的地块边界，点击添加结点",
 "tapOriginalMessage": "点击开始结点来完成整个地块的创建",
 "dragPointsMessage": "若需修改地块形状，点击结点后，将其上的蓝色图标拖到正确的位置",
-"noFieldMessage": "你目前没有地块可以管理，请按右上角的按键添加地块."
+"noFieldMessage": "你目前没有地块可以管理，请按右上角的按键添加地块.",
+"noLoggedActivities": "没有找到针对该农作物在此年的活动。"
   }
