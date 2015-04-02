@@ -14,6 +14,7 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
 	Session.set("fieldsMenuOption", 'main');
 	Session.set("showCreateDialog", false);
 	L.Icon.Default.imagePath = 'images';
+	Session.set("loadingPageOption", "login");
 //	$(window).ZhiHuiFarmUI = {};
 	//Session.set("addFieldStep", 'firstStep');
 });

@@ -5,10 +5,10 @@
 
 <body>
 	{{#if currentUser}}
-        {{> dashboard}}
-    {{else}}
-    	{{> loginSignup}}
-    {{/if}}
+    {{> dashboard}}
+  {{else}}
+  	{{> loadingPage}}
+  {{/if}}
 </body>
 <template name="details">
   <div class="details">

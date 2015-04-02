@@ -17,12 +17,12 @@ http://bootsnipp.com/snippets/featured/full-page-sign-in
 				        password: signupPassword1
 				    });
 				Meteor.loginWithPassword(signupEmail, signupPassword1);
-				Session.set("signup", false);
+				Session.set("loadingPageOption", 'login');
 	    	} else {
 	    		console.log("Password does not match.");
 	    	}
 	    } else {
-			Session.set("signup", false);
+			Session.set("loadingPageOption", 'login');
 	    }
 	}
 

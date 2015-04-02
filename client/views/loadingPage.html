@@ -1,0 +1,11 @@
+<template name="loadingPage">
+    {{#if loadingPageIs 'login'}}
+		{{> login}}
+    {{/if}}
+    {{#if loadingPageIs 'signup'}}
+		{{> signup}}
+    {{/if}}
+    {{#if loadingPageIs 'forgetPassword'}}
+		{{> forgetPassword}}
+    {{/if}}
+</template>

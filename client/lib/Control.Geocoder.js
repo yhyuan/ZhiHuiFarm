@@ -22,8 +22,8 @@
 			collapsed: true,
 			expand: 'click',
 			position: 'topright',
-			placeholder: 'Search...',
-			errorMessage: 'Nothing found.'
+			placeholder: '搜索地名...',
+			errorMessage: '没有找到.'
 		},
 
 		_callbackId: 0,

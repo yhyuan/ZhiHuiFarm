@@ -171,10 +171,10 @@ var initialize = function(element, centroid, zoom, features) {
         touchZoom: false,
         layers: [image]
     }).setView(new L.LatLng(centroid[0], centroid[1]), zoom);
-    var geocoder = L.Control.Geocoder.nominatim(),
+    var geocoder = L.Control.Geocoder.nominatim();
     var control = L.Control.geocoder({
         geocoder: geocoder
-    }).addTo(map),
+    }).addTo(map);
     map.addControl( new L.Control.Gps({autoActive:true}) );
     // L.control.layers(baseLayers,overlayLayers).addTo(map);
     //  L.control.zoom({zoomInTitle:'放大', zoomOutTitle:'缩小'}).addTo(map);
@@ -300,7 +300,7 @@ Template.map.rendered = function() {
         });
     } else {
         var defaultLatLng = [39.56349, 117.55405];
-        var defaultZoomLevel = 10;
+        var defaultZoomLevel = 13;
         initialize($("#map_canvas")[0], defaultLatLng, defaultZoomLevel);
         /*
         var positioningErrorHandler = function(error) {
