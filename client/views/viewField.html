@@ -10,7 +10,8 @@
   {{/if}}
 
   {{#if beingEditedIs "main" }}
-      <div class="navbar bg-outer">
+  <div class="bg-outer">
+      <div class="navbar">
           <div class="navbar-inner">
             <div class="container">
               <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('fieldsMenuOption', 'main');" id='goBackButton'/>
@@ -23,7 +24,7 @@
           </div>
       </div>
 
-     <div class="bg-outer"><center>
+     <center>
      <h3>{{title}}</h3><br>
      {{calculateArea}} {{_ "hectare"}}
   <div class="panel panel-primary">
@@ -61,7 +62,23 @@
         {{#if isCropsZero}}
           <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
         {{else}}
-          {{cropsList}}<input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
+          <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>{{_ "crops"}}</th>
+                <th>{{_ "year"}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each cropsListInThisYear}}
+                <tr>
+                  <td>{{name}}</td>
+                  <td>{{year}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
         {{/if}}
      </div>
   </div>
@@ -77,6 +94,18 @@
         {{/if}}
      </div>
   </div>
+  <div class="panel panel-warning">
+     <div class="panel-heading">
+        <h3 class="panel-title">{{_ "yield"}}</h3>
+     </div>
+     <div class="panel-body">
+        {{#if isYieldsZero}}
+          <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
+        {{else}}
+          {{yieldsList}}<input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editCrops();"/>
+        {{/if}}
+     </div>
+  </div>  
       {{#if isPartyOwner}}
         <div class="panel panel-primary">
            <div class="panel-heading">

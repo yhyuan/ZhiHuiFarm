@@ -200,7 +200,8 @@ updateParty: function (options) {
       //public: !! options.public,
       staffs: [],
       crops: {},
-      activities: {}
+      activities: {},
+      yields: []
     });
     return id;
   },

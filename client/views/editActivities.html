@@ -11,7 +11,31 @@
         </div>
     </div>
 
-Test
+        <div class="form-group">
+          <label for="sel1">{{_ "activitiesList"}}:</label>
+          <select class="form-control" id="cropsYearsSelectList">
+            {{#each cropsYears}}
+               <option>{{name}} -- {{year}}</option>
+            {{/each}}
+          </select>
+          <label for="sel1">{{_ "yearsList"}}:</label>
+          <select class="form-control" id="yearSelectList">
+            {{#each activities}}
+              <option>{{name}}</option>
+            {{/each}}
+          </select>
+          <div class="nav pull-right">
+            <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.addActivity();"/>
+          </div>
+        </div><!--
+        {{#if isActivitiesZero}}
+            <label id="activitiesList"><br><br><br><br></label>
+        {{else}}
+          {{#each yearCropsInField}}
+             <strong>{{year}}</strong>
+            {{> cropsInField }}
+          {{/each}}
+        {{/if}}-->
  
   </div>
 </template>

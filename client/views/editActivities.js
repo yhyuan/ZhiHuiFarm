@@ -1,7 +1,20 @@
 
 Template.editActivities.helpers({
-  isCropsZero: function () {    
+  isActivitiesZero: function () {    
     return _.keys(Session.get("currentViewedFieldCrops")).length === 0;
+  },
+  cropsYears: function () {
+    var crops = Crops.find({}).fetch();
+    var cropsDict = _.object(_.map(crops, function(crop) {return crop.Id;}), _.map(crops, function(crop) {return crop.name;}));
+
+    var currentViewedFieldCrops = Session.get("currentViewedField").crops;
+    var cropYear = _.map(_.keys(currentViewedFieldCrops), function(year) {
+      var cropsInThisYear = currentViewedFieldCrops[year];
+      return _.map(cropsInThisYear, function(cropId) {
+        return {name: cropsDict[cropId], year: year};
+      })
+    });
+    return _.reduce(cropYear, function(memo, num){ return memo.concat(num); }, []);
   },
   /*cropsInField: function () {
     var crops = Crops.find({}).fetch();
@@ -25,8 +38,8 @@ Template.editActivities.helpers({
       return _.contains(, crop.Id);
     });*/
   },
-  crops: function () {
-    return Crops.find({});
+  activities: function () {
+    return Activities.find({});
   },
   years: function () {
     return _.map(_.range(new Date().getFullYear(), 2000, -1), function(year) {
@@ -65,7 +78,7 @@ window.ZhiHuiFarmUI.deleteCrop = function (year, id) {
   Session.set("currentViewedFieldCrops", currentCrops)
 };
 
-window.ZhiHuiFarmUI.addCrop = function () {
+window.ZhiHuiFarmUI.addActivity = function () {
   var cropName = $('#cropSelectList').val();
   var crops = Crops.find({}).fetch();
   var cropId = _.filter(crops, function(crop) {

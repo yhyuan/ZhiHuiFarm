@@ -30,7 +30,10 @@ Template.viewField.helpers({
   isStaffsZero: function () {    
     return Session.get("currentViewedField").staffs.length === 0;
   },
-  cropsList: function() {
+  isYieldsZero: function () {
+    return Session.get("currentViewedField").yields.length === 0;
+  },  
+  cropsListInThisYear: function() {
       var crops = Crops.find({}).fetch();
       var cropsDict = _.object(_.map(crops, function(crop) {return crop.Id;}), _.map(crops, function(crop) {return crop.name;}));
       var keys = _.keys(Session.get("currentViewedField").crops);
@@ -38,9 +41,13 @@ Template.viewField.helpers({
         return '';
       } 
       var maxKey = _.max(keys);
+      return _.map(Session.get("currentViewedField").crops[maxKey], function(cropId) {
+        return {year: maxKey, name: cropsDict[cropId]};
+      });      
+      /*
       return maxKey + ': ' + _.map(Session.get("currentViewedField").crops[maxKey], function(cropId) {
         return cropsDict[cropId];
-      }).join(',');
+      }).join(',');*/
   },
   activitiesList: function() {
       var activities = Activities.find({}).fetch();
@@ -53,7 +60,19 @@ Template.viewField.helpers({
       return maxKey + ': ' + _.map(Session.get("currentViewedField").activities[maxKey], function(activityId) {
         return activitiesDict[activityId];
       }).join(',');
-  }
+  },
+  cropsList: function() {
+      var crops = Crops.find({}).fetch();
+      var cropsDict = _.object(_.map(crops, function(crop) {return crop.Id;}), _.map(crops, function(crop) {return crop.name;}));
+      var keys = _.keys(Session.get("currentViewedField").crops);
+      if (keys.length === 0) {
+        return '';
+      } 
+      var maxKey = _.max(keys);
+      return maxKey + ': ' + _.map(Session.get("currentViewedField").crops[maxKey], function(cropId) {
+        return cropsDict[cropId];
+      }).join(',');
+  }  
 });
 
 if (!window.ZhiHuiFarmUI) {
