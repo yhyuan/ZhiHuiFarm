@@ -13,9 +13,10 @@ Meteor.publish("crops", function () {
   return Crops.find({});
 });
 
-Meteor.publish("years", function () {
-  return Years.find({});
+Meteor.publish("activities", function () {
+  return Activities.find({});
 });
+
 
 // server/smtp.js
 Meteor.startup(function () {
@@ -56,6 +57,26 @@ Meteor.startup(function () {
       Crops.insert(crop);
     })
   }
+  if (Activities.find().count() === 0) {
+    var activitiesList = [
+      { 
+        Id: 1,
+        name: '播种'
+      },
+      {
+        Id: 2,
+        name: '施肥'
+      },
+      {
+        Id: 3,
+        name: '收割'
+      }
+    ];
+    _.each(activitiesList, function(activity) {
+      Activities.insert(activity);
+    })
+  }
+
   //process.env.MAIL_URL = 'smtp://postmaster%40zhihuifarm.mailgun.org:yorkyork@smtp.mailgun.org:587';
 });
 

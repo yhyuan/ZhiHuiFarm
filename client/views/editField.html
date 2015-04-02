@@ -6,7 +6,7 @@
     <div class="navbar bg-outer">
         <div class="navbar-inner">
           <div class="container">
-            <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('isCurrentFieldsBeingEdit', false);"/>
+            <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('beingEditedOption', 'main');"/>
                 <div class="nav pull-right">
                   <input type="submit" value="{{_ "delete"}}" class="btn btn-danger btn-sm" onclick="$('#deleteDialogModal').modal('show');"/>
                 </div>            

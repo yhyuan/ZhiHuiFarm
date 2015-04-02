@@ -3,7 +3,7 @@
 Meteor.subscribe("directory");
 Meteor.subscribe("parties");
 Meteor.subscribe("crops");
-
+Meteor.subscribe("activities");
 
 // If no party selected, or if the selected party was deleted, select one.
 Meteor.startup(function () {

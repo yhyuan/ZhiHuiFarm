@@ -24,6 +24,7 @@ if (Meteor.isClient) {
 }
 
 Crops = new Mongo.Collection("crops");
+Activities = new Mongo.Collection("activities");
 
 
 /*
@@ -199,7 +200,7 @@ updateParty: function (options) {
       //public: !! options.public,
       staffs: [],
       crops: {},
-      activities: []
+      activities: {}
     });
     return id;
   },

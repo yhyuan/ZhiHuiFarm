@@ -1,8 +1,9 @@
 <template name="editCrops">
-    <div class="navbar bg-outer">
+   <div class="bg-outer">
+    <div class="navbar">
         <div class="navbar-inner">
           <div class="container">
-            <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('isCropsBeingEdited', false);" id='goBackButton'/>
+            <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('beingEditedOption', 'main');" id='goBackButton'/>
                 <div class="nav pull-right">
                   <input type="submit" value="{{_ "save"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.saveCrops();" id='editFieldButton'/>
                 </div>
@@ -10,7 +11,6 @@
         </div>
     </div>
 
-   <div class="bg-outer">
         <div class="form-group">
           <label for="sel1">{{_ "cropsList"}}:</label>
           <select class="form-control" id="cropSelectList">

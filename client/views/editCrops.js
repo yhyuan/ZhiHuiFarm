@@ -48,9 +48,8 @@ window.ZhiHuiFarmUI.saveCrops = function () {
       description: field.description,
       boundary: field.boundary,
       crops: field.crops
-  });      
-  //console.log(Session.get("currentViewedField"));
-  Session.set("isCropsBeingEdited", false);
+  });
+  Session.set("beingEditedOption", 'main');
 };
 
 window.ZhiHuiFarmUI.deleteCrop = function (year, id) {

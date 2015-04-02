@@ -35,7 +35,7 @@ window.ZhiHuiFarmUI.clearMap = function () {
 };
 window.ZhiHuiFarmUI.doneMap = function () {
     Session.set("createdFieldBoundary", _.map(markers, function(m) {return m.getLatLng();}));
-    if (Session.get("currentViewedField") && Session.get("isCurrentFieldsBeingEdit")) {
+    if (Session.get("currentViewedField") && (Session.get("beingEditedOption")==='Field')) {
         Session.set("createError", null);
         $('#editDialogModal').modal('show');
     } else {
@@ -271,7 +271,7 @@ Template.map.rendered = function() {
         $('#map_canvas').css('height', (h - offsetTop));
     }).resize();
 
-    if (Session.get("currentViewedField") && Session.get("isCurrentFieldsBeingEdit")) {
+    if (Session.get("currentViewedField") && (Session.get("beingEditedOption")==='Field')) {
         var center = Session.get("currentViewedFieldCenter");
         var zoomLevel = 15;
         initialize($("#map_canvas")[0], [center.lat, center.lng], zoomLevel);
