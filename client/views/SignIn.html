@@ -1,0 +1,42 @@
+<template name="SignIn">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="wrap">
+                  <p class="form-title">
+                      {{_ "smartFarm"}}</p>
+                  <form class="login" action="/signin" id="signInForm" method="post">
+                  <input type="text" placeholder="{{_ "email"}}" name="email" id="signInEmail"/>
+                  <input type="password" placeholder="{{_ "password"}}" name="password" id="signInPassword"/>
+                  <input type="submit" value="{{_ "signin"}}" class="btn btn-success btn-sm" />
+<!--                  <input type="submit" value="{{_ "signup"}}" class="btn btn-success btn-sm" onclick="Session.set('loadingPageOption', 'signup');"/>
+                  <input type="submit" value="{{_ "forgetPassword"}}" class="btn btn-success btn-sm" onclick="Session.set('loadingPageOption', 'forgetPassword');"/>-->
+                  
+                  <div class="remember-forgot">
+                      <div class="row">
+                          <div class="col-md-6 forgot-pass-content">
+                              <!--<a class="forgot-pass" onlick="Session.set('loadingPageOption', 'signup');">{{_ "signup"}}</a>-->
+							  <input type="submit" value="{{_ "signup"}}" class="btn btn-success btn-sm" onclick="Session.set('loadingPageOption', 'SignUp');"/>
+                          </div>
+                          <div class="col-md-6 forgot-pass-content">
+                              <!--<a class="forgot-pass" onlick="Session.set('loadingPageOption', 'forgetPassword');">{{_ "forgetPassword"}}</a>-->
+							  <input type="submit" value="{{_ "forgetPassword"}}" class="btn btn-success btn-sm" onclick="Session.set('loadingPageOption', 'ForgotPassword');"/>
+                          </div> 						  
+                      </div>
+                  </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</template>
+<!--
+<template name="SignIn">
+
+    <form action="/signin" id="signInForm" method="post">
+        <input id="signInEmail" type="text" name="email" placeholder="Email Address">
+        <input id="signInPassword" type="password" name="password" placeholder="Password">
+        <input class="btn-submit" type="submit" value="Sign In">
+    </form>
+</template>
+-->

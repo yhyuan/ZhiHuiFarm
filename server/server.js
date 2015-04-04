@@ -80,24 +80,24 @@ Meteor.startup(function () {
   //process.env.MAIL_URL = 'smtp://postmaster%40zhihuifarm.mailgun.org:yorkyork@smtp.mailgun.org:587';
 });
 
-/*
+
 // (server-side)
 Meteor.startup(function() {
   // By default, the email is sent from no-reply@meteor.com. If you wish to receive email from users asking for help with their account, be sure to set this to an email address that you can receive email at.
-  Accounts.emailTemplates.from = 'Gentlenode <no-reply@gentlenode.com>';
+  Accounts.emailTemplates.from = '智慧农场<no-reply@zhihui.farm>';
 
   // The public name of your application. Defaults to the DNS name of the application (eg: awesome.meteor.com).
-  Accounts.emailTemplates.siteName = 'Gentlenode Studio';
+  Accounts.emailTemplates.siteName = '智慧农场';
 
   // A Function that takes a user object and returns a String for the subject line of the email.
   Accounts.emailTemplates.verifyEmail.subject = function(user) {
-    return 'Confirm Your Email Address';
+    return '验证你的电子邮件地址';
   };
 
   // A Function that takes a user object and a url, and returns the body text for the email.
   // Note: if you need to return HTML instead, use Accounts.emailTemplates.verifyEmail.html
   Accounts.emailTemplates.verifyEmail.text = function(user, url) {
-    return 'click on the following link to verify your email address: ' + url;
+    return '请点击以下链接来验证您的电子邮件地址: ' + url;
   };
 });
 
@@ -122,4 +122,4 @@ Accounts.validateLoginAttempt(function(attempt){
   }
   return true;
 }); 
-*/
+

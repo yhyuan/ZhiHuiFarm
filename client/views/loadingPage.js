@@ -3,9 +3,9 @@ Template.loadingPage.helpers({
     return Session.get("loadingPageOption") === loadingPageOption;
   }
 });
-/*
+
 // (client-side)
-Template.loginSignup.created = function() {
+Template.loadingPage.created = function() {
   if (Accounts._verifyEmailToken) {
     Accounts.verifyEmail(Accounts._verifyEmailToken, function(err) {
       if (err != null) {
@@ -19,4 +19,3 @@ Template.loginSignup.created = function() {
   }
 };
 
-*/
