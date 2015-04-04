@@ -25,7 +25,7 @@ Template.SignUp.events({
             console.log('We are sorry but something went wrong.');
           }
         } else {
-			Meteor.loginWithPassword(email, password);
+			//Meteor.loginWithPassword(email, password);
 			Session.set("loadingPageOption", 'SignIn');
 			console.log('Congrats new Meteorite, you\'re in!');
         }
