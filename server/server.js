@@ -99,6 +99,14 @@ Meteor.startup(function() {
   Accounts.emailTemplates.verifyEmail.text = function(user, url) {
     return '请点击以下链接来验证您的电子邮件地址: ' + url;
   };
+
+  Accounts.emailTemplates.resetPassword.subject= function(user) {
+    return '重新设置密码';
+  };
+  Accounts.emailTemplates.resetPassword.text= function(user, url) {
+    return '请点击以下链接来重新设置您的密码: ' + url;
+  };
+
 });
 
 // (server-side)
@@ -108,7 +116,7 @@ Accounts.onCreateUser(function(options, user) {
   // we wait for Meteor to create the user before sending an email
   Meteor.setTimeout(function() {
     Accounts.sendVerificationEmail(user._id);
-  }, 2 * 1000);
+  }, 3 * 1000);
 
   return user;
 });
