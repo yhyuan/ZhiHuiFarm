@@ -1,11 +1,19 @@
 <template name="loadingPage">
-    {{#if loadingPageIs 'SignIn'}}
-		{{> SignIn}}
+    {{#if resetPassword}}
+    	{{> ResetPassword}}
+    {{else}}
+	    {{#if loadingPageIs 'SignIn'}}
+			{{> SignIn}}
+	    {{/if}}
+	    {{#if loadingPageIs 'SignUp'}}
+			{{> SignUp}}
+	    {{/if}}
+	    {{#if loadingPageIs 'ForgotPassword'}}
+			{{> ForgotPassword}}
+	    {{/if}}
+	    {{#if resetPassword}}
+			{{> ForgotPassword}}
+	    {{/if}}
     {{/if}}
-    {{#if loadingPageIs 'SignUp'}}
-		{{> SignUp}}
-    {{/if}}
-    {{#if loadingPageIs 'ForgotPassword'}}
-		{{> ForgotPassword}}
-    {{/if}}
+
 </template>

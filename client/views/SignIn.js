@@ -49,7 +49,9 @@ Template.SignIn.events({
 
       Meteor.loginWithPassword(email, password, function(err) {
         if (err) {
-          console.log('These credentials are not valid.');
+          //console.log('These credentials are not valid.');
+          Session.set('SignInDialogMessage', '您的用户名或者密码有错误。');
+          $('#SignInDialogModal').modal('show');
         } else {
           console.log('Welcome back Meteorite!');
         }
@@ -59,6 +61,12 @@ Template.SignIn.events({
     return false;
   },
 });
+
+Template.SignInDialog.helpers({
+     SignInDialogMessage: function() {
+         return Session.get('SignInDialogMessage');
+     }
+ });
 
 trimInput = function(value) {
     return value.replace(/^\s*|\s*$/g, '');

@@ -2,6 +2,8 @@
 "send": "Send",
 "email": "Email",
 "password": "Password",
+"newPassword": "New Password",
+"resetPassword": "Reset Password",
 "smartFarm": "eSmart Farm",
 "signup": "Sign Up",
 "pleaseSignup": "Please Signup",

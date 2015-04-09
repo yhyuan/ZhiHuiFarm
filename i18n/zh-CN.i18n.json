@@ -2,6 +2,8 @@
 "send": "发送",
 "email": "电子邮件",
 "password": "密码",
+"newPassword": "新密码",
+"resetPassword": "重置密码",
 "smartFarm": "智慧农场",
 "signup": "注册",
 "pleaseSignup": "请注册",

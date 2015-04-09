@@ -1,7 +1,10 @@
 Template.loadingPage.helpers({
   loadingPageIs: function (loadingPageOption) {
     return Session.get("loadingPageOption") === loadingPageOption;
-  }
+  },
+  resetPassword: function(){
+    return Session.get('resetPassword');
+   }
 });
 
 // (client-side)

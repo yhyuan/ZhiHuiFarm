@@ -97,7 +97,7 @@ Meteor.startup(function() {
   // A Function that takes a user object and a url, and returns the body text for the email.
   // Note: if you need to return HTML instead, use Accounts.emailTemplates.verifyEmail.html
   Accounts.emailTemplates.verifyEmail.text = function(user, url) {
-    return '请点击以下链接来验证您的电子邮件地址: ' + url;
+    return '请点击以下链接来验证您的电子邮件地址, 验证成功后，系统将自动登陆: ' + url;
   };
 
   Accounts.emailTemplates.resetPassword.subject= function(user) {
