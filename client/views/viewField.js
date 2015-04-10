@@ -40,27 +40,52 @@ Template.viewField.helpers({
       if (keys.length === 0) {
         return '';
       } 
-      var maxKey = _.max(keys);
+      var maxKey = _.max(keys);// the most recent year. {2015: [1, 2, 3], 2014: [2, 3]}
       return _.map(Session.get("currentViewedField").crops[maxKey], function(cropId) {
         return {year: maxKey, name: cropsDict[cropId]};
       });      
-      /*
-      return maxKey + ': ' + _.map(Session.get("currentViewedField").crops[maxKey], function(cropId) {
-        return cropsDict[cropId];
-      }).join(',');*/
   },
-  activitiesList: function() {
-      var activities = Activities.find({}).fetch();
-      var activitiesDict = _.object(_.map(activities, function(activity) {return activity.Id;}), _.map(activities, function(activity) {return activity.name;}));
+  activitiesInThisYear: function() {
+      //var activities = Activities.find({}).fetch();
+      //var activitiesDict = _.object(_.map(activities, function(activity) {return activity.Id;}), _.map(activities, function(activity) {return activity.name;}));
+      //{2015: {1: [{date: '2015/03/15', activity: 1}], 2: [{date: '2015/03/15', activity: 1}], 3: [{date: '2015/03/15', activity: 1}]}, 2014: {2: [{date: '2015/03/15', activity: 1}], 3: [{date: '2015/03/15', activity: 1, performer: 'aafagaag'}]}
       var keys = _.keys(Session.get("currentViewedField").activities);
       if (keys.length === 0) {
-        return '';
-      } 
+        return 0;
+      }
       var maxKey = _.max(keys);
-      return maxKey + ': ' + _.map(Session.get("currentViewedField").activities[maxKey], function(activityId) {
-        return activitiesDict[activityId];
-      }).join(',');
+      var thisYearActivities = Session.get("currentViewedField").activities[maxKey];
+      return _.reduce(_.map(_.values(thisYearActivities), function(arr) {return arr.length;}), function(memo, num){ return memo + num; }, 0);
   },
+  latestActivityName: function() {
+      var activities = Activities.find({}).fetch();
+      var activitiesDict = _.object(_.map(activities, function(activity) {return activity.Id;}), _.map(activities, function(activity) {return activity.name;}));
+
+      var keys = _.keys(Session.get("currentViewedField").activities);
+      var maxKey = _.max(keys);
+      var thisYearActivities = Session.get("currentViewedField").activities[maxKey];
+      var activitiesCombined = _.reduce(_.values(thisYearActivities), function(memo, num){ return memo.concat(num); }, []);
+      var latestActivity = _.max(activitiesCombined, function(activity){ return activity.date; });
+      return activitiesDict[latestActivity.activity];
+
+  },
+  latestActivityDate: function() {
+      var keys = _.keys(Session.get("currentViewedField").activities);
+      var maxKey = _.max(keys);
+      var thisYearActivities = Session.get("currentViewedField").activities[maxKey];
+      var activitiesCombined = _.reduce(_.values(thisYearActivities), function(memo, num){ return memo.concat(num); }, []);
+      var latestActivity = _.max(activitiesCombined, function(activity){ return activity.date; });
+      return latestActivity.date;
+
+  },
+  latestActivityPerformer: function() {
+      var keys = _.keys(Session.get("currentViewedField").activities);
+      var maxKey = _.max(keys);
+      var thisYearActivities = Session.get("currentViewedField").activities[maxKey];
+      var activitiesCombined = _.reduce(_.values(thisYearActivities), function(memo, num){ return memo.concat(num); }, []);
+      var latestActivity = _.max(activitiesCombined, function(activity){ return activity.date; });
+      return latestActivity.performer;
+  }/*,
   cropsList: function() {
       var crops = Crops.find({}).fetch();
       var cropsDict = _.object(_.map(crops, function(crop) {return crop.Id;}), _.map(crops, function(crop) {return crop.name;}));
@@ -72,7 +97,7 @@ Template.viewField.helpers({
       return maxKey + ': ' + _.map(Session.get("currentViewedField").crops[maxKey], function(cropId) {
         return cropsDict[cropId];
       }).join(',');
-  }  
+  }*/ 
 });
 
 if (!window.ZhiHuiFarmUI) {
