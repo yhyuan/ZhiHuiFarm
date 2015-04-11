@@ -1,7 +1,7 @@
 
 Template.editActivities.helpers({
-  beingEditedIs: function (beingEditedOption) {
-    return Session.get('beingEditedOption') === beingEditedOption;
+  addingActivities: function () {
+    return Session.get('addingActivities');
   },
   isActivitiesZero: function () {
     var cropsYears =  Session.get("currentViewedFieldCropsYears");
@@ -99,7 +99,7 @@ window.ZhiHuiFarmUI.deleteCrop = function (year, id) {
 };
 
 window.ZhiHuiFarmUI.addActivity = function () {
-  Session.set('beingEditedOption', 'AddActivities'); 
+  Session.set('addingActivities', true); 
 };
 
 window.ZhiHuiFarmUI.CropsYearsSelectListChanged = function (value) {

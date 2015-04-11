@@ -1,8 +1,7 @@
 <template name="editActivities">
-  {{#if beingEditedIs "AddActivities" }}
+  {{#if addingActivities }}
     {{> AddActivities}}
-  {{/if}}
-
+  {{else}}
   <div class="bg-outer">
     <div class="navbar">
         <div class="navbar-inner">
@@ -49,6 +48,6 @@
           </table>
         {{/if}}
   </div>
-
+  {{/if}}
 </template>
 
