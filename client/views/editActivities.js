@@ -28,7 +28,7 @@ Template.editActivities.helpers({
     var activities = Activities.find({}).fetch();
     var activitiesDict = _.object(_.map(activities, function(activity) {return activity.Id;}), _.map(activities, function(activity) {return activity.name;}));  
     return _.map(activitiesCurrentField[year][cropId], function(act) {
-      return {date: act.date, activity: activitiesDict[act.activity], performer: act.performer};
+      return {date: act.date, activity: activitiesDict[act.activity], performer: act.performer, activityId: act.activity, performerId: act.performer};
     });
   },
   cropsYears: function () {
@@ -86,7 +86,7 @@ window.ZhiHuiFarmUI.saveCrops = function () {
   Session.set("isCropsBeingEdited", false);
 };
 
-window.ZhiHuiFarmUI.deleteCrop = function (year, id) {
+window.ZhiHuiFarmUI.deleteActivity = function (year, id) {
   var currentCrops = _.clone(Session.get("currentViewedFieldCrops"));
   currentCrops[year] = _.filter(currentCrops[year], function(currentId) {
     return currentId !== id;

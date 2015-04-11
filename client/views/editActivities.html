@@ -34,6 +34,7 @@
                 <th>{{_ "date"}}</th>
                 <th>{{_ "activities"}}</th>
                 <th>{{_ "performer"}}</th>
+                <th>{{_ "delete"}}</th>
               </tr>
             </thead>
             <tbody>
@@ -42,6 +43,7 @@
                   <td>{{date}}</td>
                   <td>{{activity}}</td>
                   <td>{{performer}}</td>
+                  <td><input type="submit" value="{{_ "delete"}}" class="btn btn-danger btn-sm" onclick="window.ZhiHuiFarmUI.deleteActivity({{date}} , {{activityId}}, {{performerId}});"/></td>
                 </tr>
               {{/each}}
             </tbody>
