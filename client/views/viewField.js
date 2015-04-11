@@ -48,7 +48,7 @@ Template.viewField.helpers({
   activitiesInThisYear: function() {
       //var activities = Activities.find({}).fetch();
       //var activitiesDict = _.object(_.map(activities, function(activity) {return activity.Id;}), _.map(activities, function(activity) {return activity.name;}));
-      //{2015: {1: [{date: '2015/03/15', activity: 1}], 2: [{date: '2015/03/15', activity: 1}], 3: [{date: '2015/03/15', activity: 1}]}, 2014: {2: [{date: '2015/03/15', activity: 1}], 3: [{date: '2015/03/15', activity: 1, performer: 'aafagaag'}]}
+      //{2015: {1: [{date: '2015/03/15', activity: 1, performer: 'sagageaga'}], 2: [{date: '2015/03/15', activity: 1}], 3: [{date: '2015/03/15', activity: 1}]}, 2014: {2: [{date: '2015/03/15', activity: 1}], 3: [{date: '2015/03/15', activity: 1, performer: 'aafagaag'}]}
       var keys = _.keys(Session.get("currentViewedField").activities);
       if (keys.length === 0) {
         return 0;

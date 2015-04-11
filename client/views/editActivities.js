@@ -1,14 +1,35 @@
 
 Template.editActivities.helpers({
+  beingEditedIs: function (beingEditedOption) {
+    return Session.get('beingEditedOption') === beingEditedOption;
+  },
   isActivitiesZero: function () {
     var cropsYears =  Session.get("currentViewedFieldCropsYears");
     var firstCropYear = cropsYears[Session.get("currentViewedFieldCropsYearsIndex")];
-    var activities = Activities.find({}).fetch();
+    //console.log(firstCropYear);
+    var year = firstCropYear.year;
+    var cropId = firstCropYear.cropId;
+    var activities = Session.get("currentViewedField").activities;
+    if (!activities.hasOwnProperty(year)) {
+      return true;
+    }
+    if (!activities[year].hasOwnProperty(cropId)) {
+      return true;
+    } 
+    return false;
+  },
+  activitiesList: function () {
+    var cropsYears =  Session.get("currentViewedFieldCropsYears");
+    var firstCropYear = cropsYears[Session.get("currentViewedFieldCropsYearsIndex")];
+    var year = firstCropYear.year;
+    var cropId = firstCropYear.cropId;
+    var activitiesCurrentField = Session.get("currentViewedField").activities;
 
-    var filtered = _.filter(activities, function(activity) {
-      return (firstCropYear.cropId === activity.cropId) && (firstCropYear.year === activity.year);
+    var activities = Activities.find({}).fetch();
+    var activitiesDict = _.object(_.map(activities, function(activity) {return activity.Id;}), _.map(activities, function(activity) {return activity.name;}));  
+    return _.map(activitiesCurrentField[year][cropId], function(act) {
+      return {date: act.date, activity: activitiesDict[act.activity], performer: act.performer};
     });
-    return filtered.length === 0;
   },
   cropsYears: function () {
     return Session.get("currentViewedFieldCropsYears");
@@ -78,22 +99,7 @@ window.ZhiHuiFarmUI.deleteCrop = function (year, id) {
 };
 
 window.ZhiHuiFarmUI.addActivity = function () {
-  var cropName = $('#cropSelectList').val();
-  var crops = Crops.find({}).fetch();
-  var cropId = _.filter(crops, function(crop) {
-    return crop.name === cropName;
-  })[0].Id;
-  var year = $('#yearSelectList').val();
-  var currentCrops = _.clone(Session.get("currentViewedFieldCrops"));
-  if (currentCrops.hasOwnProperty(year)) {
-    if (!_.contains(currentCrops[year], cropId)) {
-      currentCrops[year] = currentCrops[year].concat([cropId]);
-      Session.set("currentViewedFieldCrops", currentCrops);
-    }
-  } else {
-    currentCrops[year] = [cropId];
-    Session.set("currentViewedFieldCrops", currentCrops);
-  }
+  Session.set('beingEditedOption', 'AddActivities'); 
 };
 
 window.ZhiHuiFarmUI.CropsYearsSelectListChanged = function (value) {

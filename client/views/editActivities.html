@@ -1,4 +1,7 @@
 <template name="editActivities">
+  {{#if beingEditedIs "AddActivities" }}
+    {{> AddActivities}}
+  {{/if}}
 
   <div class="bg-outer">
     <div class="navbar">
@@ -26,7 +29,24 @@
         {{#if isActivitiesZero}}
             <label id="activitiesList">{{_ "noLoggedActivities"}}<br><br><br></label>
         {{else}}
-          <label id="activitiesList">bbbb<br><br><br><br></label>
+         <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>{{_ "date"}}</th>
+                <th>{{_ "activities"}}</th>
+                <th>{{_ "performer"}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each activitiesList}}
+                <tr>
+                  <td>{{date}}</td>
+                  <td>{{activity}}</td>
+                  <td>{{performer}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
         {{/if}}
   </div>
 

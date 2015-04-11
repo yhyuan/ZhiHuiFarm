@@ -87,12 +87,16 @@
         <h3 class="panel-title">{{_ "activities"}}</h3>
      </div>
      <div class="panel-body">
-         {{_ "thisYearHas"}}{{activitiesInThisYear}}{{_ "activities"}}
-
-        {{#if isActivitiesZero}}
-          <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editActivities();"/>
+        {{#if isCropsZero}}
+            {{_ "noCropsInField"}}
         {{else}}
-          {{_ "latest"}}: {{latestActivityName}} {{_ "on"}} {{latestActivityDate}} {{_ "by"}} {{latestActivityPerformer}} <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editActivities();"/>
+             {{_ "thisYearHas"}}{{activitiesInThisYear}}{{_ "activities"}}
+
+            {{#if isActivitiesZero}}
+              <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editActivities();"/>
+            {{else}}
+              {{_ "latest"}}: {{latestActivityName}} {{_ "on"}} {{latestActivityDate}} {{_ "by"}} {{latestActivityPerformer}} <input type="submit" value="{{_ "edit"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.editActivities();"/>
+            {{/if}}
         {{/if}}
      </div>
   </div>
