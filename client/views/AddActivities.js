@@ -1,8 +1,14 @@
 
-Template.editActivities.helpers({
-  addingActivities: function () {
-    return Session.get('addingActivities');
+Template.AddActivities.helpers({
+  currentCropYear: function () {
+    var cropsYears =  Session.get("currentViewedFieldCropsYears");
+    var firstCropYear = cropsYears[Session.get("currentViewedFieldCropsYearsIndex")];
+    return firstCropYear.name + ' -- ' + firstCropYear.year + ' (' + Session.get("currentViewedField").title + ')';
   },
+  activities: function () {
+    return Activities.find({});
+  },
+
   isActivitiesZero: function () {
     var cropsYears =  Session.get("currentViewedFieldCropsYears");
     var firstCropYear = cropsYears[Session.get("currentViewedFieldCropsYearsIndex")];
@@ -46,9 +52,6 @@ Template.editActivities.helpers({
     results = results.sort(function(a,b) { return b.year - a.year; });
     console.log(results);
     return results;
-  },
-  activities: function () {
-    return Activities.find({});
   },
   years: function () {
     return _.map(_.range(new Date().getFullYear(), 2000, -1), function(year) {
