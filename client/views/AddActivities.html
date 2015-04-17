@@ -4,26 +4,29 @@
         <div class="navbar-inner">
           <div class="container">
             <input type="submit" value="{{_ "goBack"}}" class="btn btn-success btn-sm" onclick="Session.set('addingActivities', false);"/>
-                <div class="nav pull-right">
+                <!--<div class="nav pull-right">
                   <input type="submit" value="{{_ "save"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.saveActivities();"/>
-                </div>
+                </div>-->
           </div>
         </div>
     </div>
 
         <div class="form-group">
           <label for="sel1">{{currentCropYear}}</label><br>
-          <label for="sel2">{{_ "activitiesList"}}</label>
+          <label for="sel2">{{_ "activitiesList"}}:</label>
           
           <select class="form-control" id="activitiesSelectList">
             {{#each activities}}
                <option value="{{Id}}">{{name}}</option>
             {{/each}}
           </select>
+          <label for="sel2">{{_ "date"}}:</label><br><input type="text" class="span2" value="{{currentDate}}" id="activityDate" ><br>
+          
           <div class="nav pull-right">
-            <input type="submit" value="{{_ "add"}}" class="btn btn-success btn-sm" onclick="window.ZhiHuiFarmUI.addActivity();"/>
+            <input type="submit" value="{{_ "save"}}" class="btn btn-success btn-sm" id="saveActivityButton"/>
           </div>
         </div>
+        <br>
   </div>
 
 </template>
